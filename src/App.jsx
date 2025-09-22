@@ -18,12 +18,9 @@ function SiteNav() {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
 
-  // close dropdown on outside click
   useEffect(() => {
     const onDocClick = (e) => {
-      if (open && menuRef.current && !menuRef.current.contains(e.target)) {
-        setOpen(false);
-      }
+      if (open && menuRef.current && !menuRef.current.contains(e.target)) setOpen(false);
     };
     document.addEventListener("mousedown", onDocClick);
     return () => document.removeEventListener("mousedown", onDocClick);
@@ -78,7 +75,6 @@ function SiteNav() {
         <ul className="hidden md:flex items-center gap-8 text-cyan-300">
           <li><a href="#home" className="hover:text-cyan-200">Home</a></li>
 
-          {/* SERVICES + DROPDOWN */}
           <li
             className="relative"
             ref={menuRef}
@@ -141,41 +137,72 @@ function SiteNav() {
   );
 }
 
-/* ===================== HERO + CALLOUTS ===================== */
+/* ===================== HERO + CALLOUTS (RESPONSIVE) ===================== */
 function HeroWithCallouts() {
   const [showCallouts, setShowCallouts] = useState(false);
-  const [active, setActive] = useState(null); // which card is open
+  const [active, setActive] = useState(null);
   const spin = useAnimation();
+  const wrapRef = useRef(null);
+  const [dims, setDims] = useState({ w: 1920, h: 1080 });
 
+  // spin + staged callouts
   useEffect(() => {
     spin.start({ rotate: 360 }, { repeat: Infinity, ease: "linear", duration: 8 });
     const t = setTimeout(() => setShowCallouts(true), 2000);
     return () => clearTimeout(t);
   }, [spin]);
 
-  // Close open card on outside click
+  // close on outside click
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (active && !e.target.closest(".card-trigger, .card-panel")) {
-        setActive(null);
-      }
+    const onDown = (e) => {
+      if (active && !e.target.closest(".card-trigger, .card-panel")) setActive(null);
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
   }, [active]);
 
-  // Logo virtual center
-  const center = useMemo(() => ({ x: 960, y: 460 }), []);
+  // observe container size (so we can scale positions)
+  useEffect(() => {
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const { width, height } = entry.contentRect;
+        setDims({ w: width, h: height });
+      }
+    });
+    if (wrapRef.current) ro.observe(wrapRef.current);
+    return () => ro.disconnect();
+  }, []);
 
-  // Callout boxes
-  const callouts = [
-    { id: "auto", label: "Automate Your Business", box: { x: 160, y: 140, w: 280, h: 70 } },
-    { id: "idea", label: "From Idea to App",       box: { x: 160, y: 430, w: 260, h: 70 } },
-    { id: "web",  label: "Web Apps & Websites",    box: { x: 1180, y: 160, w: 300, h: 70 } },
-    { id: "ai",   label: "AI-Powered Solutions",   box: { x: 1180, y: 610, w: 300, h: 70 } },
-  ];
+  const isMobile = dims.w < 768;
+  const isTablet = dims.w >= 768 && dims.w < 1280;
+  const isDesktop = dims.w >= 1280;
 
-  // Narratives (all four)
+  // FRACTION-BASED layouts (scale with container dims)
+  // values are proportions of width/height
+  const layoutDesktop = {
+    center: { x: 0.5, y: 0.46 },
+    boxes: [
+      { id: "auto", label: "Automate Your Business", box: { x: 0.083, y: 0.13, w: 0.146, h: 70 } },
+      { id: "idea", label: "From Idea to App",       box: { x: 0.083, y: 0.398, w: 0.135, h: 70 } },
+      { id: "web",  label: "Web Apps & Websites",    box: { x: 0.615, y: 0.148, w: 0.156, h: 70 } },
+      { id: "ai",   label: "AI-Powered Solutions",   box: { x: 0.615, y: 0.565, w: 0.156, h: 70 } },
+    ],
+  };
+
+  // bring items closer for tablets (fits 1366 × 768 nicely)
+  const layoutTablet = {
+    center: { x: 0.5, y: 0.48 },
+    boxes: [
+      { id: "auto", label: "Automate Your Business", box: { x: 0.06,  y: 0.16, w: 0.30, h: 64 } },
+      { id: "idea", label: "From Idea to App",       box: { x: 0.06,  y: 0.44, w: 0.28, h: 64 } },
+      { id: "web",  label: "Web Apps & Websites",    box: { x: 0.64,  y: 0.20, w: 0.32, h: 64 } },
+      { id: "ai",   label: "AI-Powered Solutions",   box: { x: 0.64,  y: 0.60, w: 0.32, h: 64 } },
+    ],
+  };
+
+  const layout = isDesktop ? layoutDesktop : layoutTablet;
+
+  // narratives
   const narratives = {
     auto:
       "Free your team from repetitive, time-consuming tasks by letting technology handle them for you. From streamlining workflows and integrating apps to setting up smart triggers and dashboards, automation reduces errors, saves time, and lets you focus on growth.",
@@ -187,121 +214,135 @@ function HeroWithCallouts() {
       "Harness the power of artificial intelligence to work smarter, not harder. From chatbots and intelligent assistants to predictive insights and workflow automation, we design AI solutions that adapt to your business needs, streamline operations, and unlock new opportunities.",
   };
 
-  // Helpers for connectors
-  const startPointForBox = (box) => {
-    const isLeft = box.x + box.w / 2 < center.x;
+  // helpers
+  const pxBox = (fb) => ({
+    x: fb.x * dims.w,
+    y: fb.y * dims.h,
+    w: fb.w * dims.w,
+    h: fb.h, // keep height in px for consistent text sizing
+  });
+
+  const center = useMemo(
+    () => ({ x: layout.center.x * dims.w, y: layout.center.y * dims.h }),
+    [layout.center.x, layout.center.y, dims.w, dims.h]
+  );
+
+  const startPointForBox = (boxPx) => {
+    const isLeft = boxPx.x + boxPx.w / 2 < center.x;
     const inset = 8;
     return {
-      x: isLeft ? box.x + box.w - inset : box.x + inset,
-      y: box.y + box.h / 2,
+      x: isLeft ? boxPx.x + boxPx.w - inset : boxPx.x + inset,
+      y: boxPx.y + boxPx.h / 2,
     };
   };
 
-  const endOnCircle = (start, r = 95) => {
+  const endOnCircle = (start, r = Math.min(dims.w, dims.h) * 0.045 + 60) => {
     const dx = center.x - start.x;
     const dy = center.y - start.y;
     const mag = Math.hypot(dx, dy) || 1;
-    return {
-      x: center.x - (dx / mag) * r,
-      y: center.y - (dy / mag) * r,
-    };
+    return { x: center.x - (dx / mag) * r, y: center.y - (dy / mag) * r };
   };
 
   return (
-    <section className="relative h-[calc(100vh-80px)] md:h-[calc(100vh-88px)]">
+    <section ref={wrapRef} className="relative h-[calc(100vh-80px)] md:h-[calc(100vh-88px)]">
       {/* center spinning logo */}
-      <div className="absolute inset-0 grid place-items-center z-10">
+      <div className="absolute inset-0 grid place-items-center z-10 pointer-events-none">
         <motion.img
           animate={spin}
           src="/002.favicon-b.png"
           alt="Tumbletech Spinning Logo"
-          className="h-40 w-40 origin-center"
+          className="h-28 w-28 md:h-36 md:w-36 lg:h-40 lg:w-40 origin-center"
           style={{ transformOrigin: "center" }}
         />
       </div>
 
-      {/* Desktop: connectors + callouts */}
-      <div className="hidden md:block">
-        {showCallouts && (
-          <>
-            <svg
-              className="absolute inset-0 z-0 pointer-events-none"
-              viewBox="0 0 1920 1080"
-              preserveAspectRatio="none"
-            >
-              {callouts.map((c, i) => {
-                const start = startPointForBox(c.box);
-                const end = endOnCircle(start, 95);
-                return (
-                  <Connector
-                    key={`line-${c.id}`}
-                    start={start}
-                    end={end}
-                    delay={0.15 + i * 0.12}
-                  />
-                );
-              })}
-            </svg>
+      {/* ===== MOBILE: stacked accordions ===== */}
+      {isMobile && (
+        <div className="px-4 pt-28 space-y-3">
+          {["auto", "idea", "web", "ai"].map((id) => (
+            <details key={id} className="rounded-lg border border-cyan-400/40 bg-black/60">
+              <summary className="list-none px-4 py-3 text-base text-white flex items-center justify-between">
+                {id === "auto" && "Automate Your Business"}
+                {id === "idea" && "From Idea to App"}
+                {id === "web" && "Web Apps & Websites"}
+                {id === "ai" && "AI-Powered Solutions"}
+                <span className="text-cyan-300">▾</span>
+              </summary>
+              <div className="px-4 pb-4 text-sm text-cyan-100/90">{narratives[id]}</div>
+            </details>
+          ))}
+        </div>
+      )}
 
-            {/* Callout boxes */}
-            {callouts.map((c, i) => {
-              const hasCard = narratives[c.id] !== undefined;
-              const commonClass =
-                "absolute z-20 flex items-center justify-center rounded-lg border border-cyan-400/60 text-white text-lg tracking-wide shadow-[0_0_0_1px_rgba(56,189,248,0.25)] transition hover:border-cyan-300 hover:shadow-[0_0_0_1px_rgba(125,211,252,0.35)]";
-              const style = { left: c.box.x, top: c.box.y, width: c.box.w, height: c.box.h };
+      {/* ===== TABLET & DESKTOP: connectors + callouts ===== */}
+      {!isMobile && showCallouts && (
+        <>
+          <svg
+            className="absolute inset-0 z-0 pointer-events-none"
+            viewBox={`0 0 ${dims.w} ${dims.h}`}
+            preserveAspectRatio="none"
+          >
+            {layout.boxes.map((c, i) => {
+              const b = pxBox(c.box);
+              const start = startPointForBox(b);
+              const end = endOnCircle(start);
+              return <Connector key={`line-${c.id}`} start={start} end={end} delay={0.15 + i * 0.12} />;
+            })}
+          </svg>
 
-              const motionProps = {
-                initial: { opacity: 0, y: 12, scale: 0.98 },
-                animate: { opacity: 1, y: 0, scale: 1 },
-                transition: { delay: 0.22 + i * 0.12, type: "spring", stiffness: 240, damping: 24 },
-              };
+          {layout.boxes.map((c, i) => {
+            const b = pxBox(c.box);
+            const hasCard = narratives[c.id] !== undefined;
+            const cls =
+              "absolute z-20 flex items-center justify-center rounded-lg border border-cyan-400/60 text-white text-[15px] lg:text-lg tracking-wide shadow-[0_0_0_1px_rgba(56,189,248,0.25)] transition hover:border-cyan-300 hover:shadow-[0_0_0_1px_rgba(125,211,252,0.35)]";
+            const style = { left: b.x, top: b.y, width: b.w, height: b.h };
 
-              if (hasCard) {
-                return (
-                  <motion.button
-                    key={c.id}
-                    type="button"
-                    onClick={() => setActive(active === c.id ? null : c.id)}
-                    className={`card-trigger ${commonClass}`}
-                    style={style}
-                    {...motionProps}
-                  >
-                    {c.label}
-                  </motion.button>
-                );
-              }
+            const motionProps = {
+              initial: { opacity: 0, y: 12, scale: 0.98 },
+              animate: { opacity: 1, y: 0, scale: 1 },
+              transition: { delay: 0.22 + i * 0.12, type: "spring", stiffness: 240, damping: 24 },
+            };
 
+            return hasCard ? (
+              <motion.button
+                key={c.id}
+                type="button"
+                onClick={() => setActive(active === c.id ? null : c.id)}
+                className={`card-trigger ${cls}`}
+                style={style}
+                {...motionProps}
+              >
+                {c.label}
+              </motion.button>
+            ) : (
+              <motion.a key={c.id} href="#services" className={cls} style={style} {...motionProps}>
+                {c.label}
+              </motion.a>
+            );
+          })}
+
+          <AnimatePresence>
+            {layout.boxes.map((c) => {
+              const b = pxBox(c.box);
+              if (active !== c.id) return null;
               return (
-                <motion.a key={c.id} href="#services" className={commonClass} style={style} {...motionProps}>
-                  {c.label}
-                </motion.a>
+                <motion.div
+                  key={`${c.id}-card`}
+                  className="card-panel absolute z-30 max-w-[420px] rounded-xl border border-cyan-400/40 bg-black/70 backdrop-blur px-5 py-4 leading-relaxed text-cyan-100 shadow-[0_10px_30px_rgba(0,0,0,0.35)]"
+                  style={{ left: b.x, top: b.y + b.h + 10 }}
+                  initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 26 }}
+                >
+                  <div className="text-sm">{narratives[c.id]}</div>
+                  <div className="mt-3 h-[2px] w-16 bg-cyan-400/70" />
+                </motion.div>
               );
             })}
-
-            {/* Narrative cards */}
-            <AnimatePresence>
-              {Object.entries(narratives).map(([id, text]) => {
-                const box = callouts.find((c) => c.id === id)?.box;
-                if (!box || active !== id) return null;
-                return (
-                  <motion.div
-                    key={`${id}-card`}
-                    className="card-panel absolute z-30 max-w-[420px] rounded-xl border border-cyan-400/40 bg-black/70 backdrop-blur px-5 py-4 leading-relaxed text-cyan-100 shadow-[0_10px_30px_rgba(0,0,0,0.35)]"
-                    style={{ left: box.x, top: box.y + box.h + 10 }}
-                    initial={{ opacity: 0, y: -8, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -8, scale: 0.98 }}
-                    transition={{ type: "spring", stiffness: 260, damping: 26 }}
-                  >
-                    <div className="text-sm">{text}</div>
-                    <div className="mt-3 h-[2px] w-16 bg-cyan-400/70" />
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </>
-        )}
-      </div>
+          </AnimatePresence>
+        </>
+      )}
     </section>
   );
 }
