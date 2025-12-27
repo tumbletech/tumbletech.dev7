@@ -134,7 +134,7 @@ function SiteNav() {
 
           <li>
             <a
-              href="/Tumbletech-Origins-2025-Brochure.pdf"
+              href="/origins-2025.pdf"
               download
               target="_blank"
               rel="noopener noreferrer"
