@@ -146,6 +146,18 @@ function SiteNav() {
           </li>
 
         </ul>
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+          <a href="#home" className="flex items-center gap-3 select-none">
+            <img src="/001.mainlogo-b.png" alt="Tumbletech" className="h-8 w-auto" />
+          </a>
+        
+          <ul className="hidden md:flex items-center gap-8 text-cyan-300">
+            {/* nav items */}
+          </ul>
+        
+          <SocialIcons />
+        </nav>
+
       </nav>
     </header>
   );
