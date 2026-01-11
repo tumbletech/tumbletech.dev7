@@ -20,7 +20,9 @@ function SiteNav() {
 
   useEffect(() => {
     const onDocClick = (e) => {
-      if (open && menuRef.current && !menuRef.current.contains(e.target)) setOpen(false);
+      if (open && menuRef.current && !menuRef.current.contains(e.target)) {
+        setOpen(false);
+      }
     };
     document.addEventListener("mousedown", onDocClick);
     return () => document.removeEventListener("mousedown", onDocClick);
@@ -68,30 +70,107 @@ function SiteNav() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-cyan-500/20 bg-black/60 backdrop-blur">
       <nav className="flex w-full items-center px-8 py-4">
-        
         {/* LEFT — LOGO */}
         <div className="flex items-center gap-3 flex-shrink-0">
           <img src="/001.mainlogo-b.png" alt="Tumbletech" className="h-8 w-auto" />
         </div>
-    
+
         {/* CENTER — NAV LINKS */}
         <ul className="hidden md:flex flex-1 justify-center items-center gap-8 text-cyan-300">
-          <li><a href="#home" className="hover:text-cyan-200">Home</a></li>
-          <li className="relative">
-            <button className="hover:text-cyan-200">Services ▾</button>
+          <li>
+            <a href="#home" className="hover:text-cyan-200">
+              Home
+            </a>
           </li>
-          <li><a href="#projects" className="hover:text-cyan-200">Featured Projects</a></li>
-          <li><a href="#contact" className="hover:text-cyan-200">Contact Us</a></li>
+
+          {/* SERVICES DROPDOWN */}
+          <li
+            className="relative"
+            ref={menuRef}
+            onMouseEnter={() => setOpen(true)}
+            onMouseLeave={() => setOpen(false)}
+          >
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              className="inline-flex items-center gap-1 hover:text-cyan-200"
+              aria-haspopup="menu"
+              aria-expanded={open}
+            >
+              Services
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 20 20"
+                className={`transition ${open ? "rotate-180" : ""}`}
+              >
+                <path d="M5 7l5 6 5-6" stroke="currentColor" strokeWidth="2" fill="none" />
+              </svg>
+            </button>
+
+            <AnimatePresence>
+              {open && (
+                <motion.div
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                  className="absolute left-1/2 -translate-x-1/2 mt-4 w-[720px]
+                             rounded-xl border border-cyan-500/20
+                             bg-black/80 backdrop-blur
+                             shadow-lg shadow-cyan-900/20 z-50"
+                  role="menu"
+                >
+                  <div className="grid grid-cols-2 gap-4 p-4">
+                    {services.map((group) => (
+                      <div
+                        key={group.id}
+                        className="rounded-lg border border-cyan-500/15 p-3"
+                      >
+                        <div className="mb-2 text-cyan-200 font-medium">
+                          {group.title}
+                        </div>
+                        <ul className="space-y-1.5 text-sm text-cyan-100/90">
+                          {group.items.map((it, idx) => (
+                            <li key={idx}>
+                              <a
+                                href={it.href}
+                                className="block rounded px-2 py-1
+                                           hover:bg-cyan-400/10
+                                           hover:text-cyan-100"
+                                onClick={() => setOpen(false)}
+                              >
+                                {it.label}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </li>
+
+          <li>
+            <a href="#projects" className="hover:text-cyan-200">
+              Featured Projects
+            </a>
+          </li>
+          <li>
+            <a href="#contact" className="hover:text-cyan-200">
+              Contact Us
+            </a>
+          </li>
         </ul>
-    
+
         {/* RIGHT — SOCIAL ICONS */}
         <div className="flex items-center gap-4 flex-shrink-0">
           <SocialIcons />
         </div>
-    
       </nav>
     </header>
-
   );
 }
 
@@ -99,12 +178,10 @@ function SiteNav() {
 function SocialIcons() {
   return (
     <div className="hidden md:flex items-center gap-4 text-cyan-300">
-      {/* Facebook */}
       <a
         href="https://www.facebook.com/profile.php?id=61585680125154"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Tumbletech on Facebook"
         className="hover:text-cyan-200 transition"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -112,12 +189,10 @@ function SocialIcons() {
         </svg>
       </a>
 
-      {/* LinkedIn */}
       <a
         href="https://www.linkedin.com/in/tumbletech-inc-94787839b"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Tumbletech on LinkedIn"
         className="hover:text-cyan-200 transition"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -125,12 +200,10 @@ function SocialIcons() {
         </svg>
       </a>
 
-      {/* YouTube */}
       <a
         href="http://www.youtube.com/@Tumbletech-k1c"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Tumbletech on YouTube"
         className="hover:text-cyan-200 transition"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
