@@ -67,82 +67,31 @@ function SiteNav() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-cyan-500/20 bg-black/60 backdrop-blur">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <a href="#home" className="flex items-center gap-3 select-none">
+      <nav className="flex w-full items-center px-8 py-4">
+        
+        {/* LEFT — LOGO */}
+        <div className="flex items-center gap-3 flex-shrink-0">
           <img src="/001.mainlogo-b.png" alt="Tumbletech" className="h-8 w-auto" />
-        </a>
-
-        <ul className="hidden md:flex items-center gap-8 text-cyan-300">
+        </div>
+    
+        {/* CENTER — NAV LINKS */}
+        <ul className="hidden md:flex flex-1 justify-center items-center gap-8 text-cyan-300">
           <li><a href="#home" className="hover:text-cyan-200">Home</a></li>
-
-          <li
-            className="relative"
-            ref={menuRef}
-            onMouseEnter={() => setOpen(true)}
-            onMouseLeave={() => setOpen(false)}
-          >
-            <button
-              type="button"
-              className="inline-flex items-center gap-1 hover:text-cyan-200"
-              onClick={() => setOpen((v) => !v)}
-              aria-haspopup="menu"
-              aria-expanded={open}
-            >
-              Services
-              <svg width="14" height="14" viewBox="0 0 20 20" className={`transition ${open ? "rotate-180" : ""}`}>
-                <path d="M5 7l5 6 5-6" stroke="currentColor" strokeWidth="2" fill="none" />
-              </svg>
-            </button>
-
-            <AnimatePresence>
-              {open && (
-                <motion.div
-                  initial={{ opacity: 0, y: -6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ type: "spring", stiffness: 320, damping: 26 }}
-                  className="absolute right-0 mt-3 w-[520px] rounded-xl border border-cyan-500/20 bg-black/80 backdrop-blur shadow-lg shadow-cyan-900/20"
-                  role="menu"
-                >
-                  <div className="grid grid-cols-2 gap-4 p-4">
-                    {services.map((group) => (
-                      <div key={group.id} className="rounded-lg border border-cyan-500/15 p-3">
-                        <div className="mb-2 text-cyan-200 font-medium">{group.title}</div>
-                        <ul className="space-y-1.5 text-sm text-cyan-100/90">
-                          {group.items.map((it, idx) => (
-                            <li key={idx}>
-                              <a
-                                href={it.href}
-                                className="block rounded px-2 py-1 hover:bg-cyan-400/10 hover:text-cyan-100"
-                                onClick={() => setOpen(false)}
-                              >
-                                {it.label}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+          <li className="relative">
+            <button className="hover:text-cyan-200">Services ▾</button>
           </li>
-
           <li><a href="#projects" className="hover:text-cyan-200">Featured Projects</a></li>
           <li><a href="#contact" className="hover:text-cyan-200">Contact Us</a></li>
-
         </ul>
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <ul className="hidden md:flex items-center gap-8 text-cyan-300">
-            {/* nav items */}
-          </ul>
-        
+    
+        {/* RIGHT — SOCIAL ICONS */}
+        <div className="flex items-center gap-4 flex-shrink-0">
           <SocialIcons />
-        </nav>
-
+        </div>
+    
       </nav>
     </header>
+
   );
 }
 
