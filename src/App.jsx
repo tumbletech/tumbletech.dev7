@@ -101,7 +101,7 @@ function SocialIcons() {
     <div className="hidden md:flex items-center gap-4 text-cyan-300">
       {/* Facebook */}
       <a
-        href="https://www.facebook.com/tumbletech"
+        href="https://www.facebook.com/profile.php?id=61585680125154"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Tumbletech on Facebook"
@@ -127,7 +127,7 @@ function SocialIcons() {
 
       {/* YouTube */}
       <a
-        href="https://www.youtube.com/@tumbletech"
+        href="http://www.youtube.com/@Tumbletech-k1c"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Tumbletech on YouTube"
