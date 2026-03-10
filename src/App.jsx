@@ -425,6 +425,19 @@ function HeroWithCallouts() {
   );
 }
 
+/* ======================= FEATURED PROJECTS / DEMO ======================= */
+function FeaturedProjectsSection() {
+  return (
+    <section id="projects" className="bg-black px-5 py-20 md:px-8 border-t border-cyan-500/10">
+      <div className="mx-auto max-w-7x1">
+        <div className="text-center">
+          <div className="text-xs uppercase tracking-[0.28em] text-cyan-300">
+            Featured Projects
+          </div>
+        </div>
+      </div>
+    </section>
+
 /* ======================= CONNECTOR ======================= */
 function Connector({ start, end, delay = 0 }) {
   return (
