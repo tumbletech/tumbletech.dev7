@@ -427,12 +427,129 @@ function HeroWithCallouts() {
 
 /* ======================= FEATURED PROJECTS / DEMO ======================= */
 function FeaturedProjectsSection() {
+  const categories = [
+    {
+      title: "Automation",
+      text: "Workflow automation, integrations, reporting systems, lead capture flows, and operational pipelines that reduce manual work.", 
+    },
+    {
+      title: "AI Agents Development",
+      text: "Customs AI assistants, triage agents, follow-up agents, support agents, and intelligent workflows tailored to business use cases.",
+    },
+    {
+      title: "Websites",
+      text: "Business websites, landing pages, showcase sites, portals, and web experiences built for clarity, speed, and clarity.",
+    },
+    {
+      title: "SaaS",
+      text: "Internal tools, MVPs, dashboards, subscription-ready systems, and software products designed around real operational problems.",
+    },
+  ];
+  
   return (
     <section id="projects" className="bg-black px-5 py-20 md:px-8 border-t border-cyan-500/10">
       <div className="mx-auto max-w-7x1">
         <div className="text-center">
           <div className="text-xs uppercase tracking-[0.28em] text-cyan-300">
             Featured Projects
+          </div>
+          <h2 className="mt-4 text-3xl, md:text-4xl font-semibold text-white">
+            Four lanes of build capacity
+          </h2>
+          <p className="mt-4 text-cyan-100/70 max-w-3xl mx-auto text-sm md:text-base leading-7">
+            Tumbletech builds across automation, AI agents, websites, and SaaS. Below is a live spotlight from the automation lane.
+          </p>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {categories.map((item) => (
+            <div
+              key={item.title}
+              className="rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-6"
+            >
+              <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+              <p className="mt-4 text-sm leading-7 text-cyan-100/75">{item.text}</p>
+              <div className="mt-6 h-[2px] w-14 bg-cyan-400/70" />
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-16 rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-6 md:p-8">
+          <div className="inline-flex rounded-full border border-cyan-500/20 bg-cyan-500/[0.05] px-3 py-1 text-xs uppercase tracking-[0.2em] text-cyan-300">
+            Automation Spotlight
+          </div>
+
+          <h3 className="mt-5 text-2xl font-semibold text-white">
+            AI Lead Qualification System
+          </h3>
+
+          <p className="mt-4 text-sm leading-7 text-cyan-100/75 max-w-3xl">
+            A working automation concept that captures inquiries, evaluates buyer intent with AI,
+            logs the submission automatically, and helps prioritize serious leads faster.
+          </p>
+
+          <div className="mt-8 grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+            <div className="rounded-2xl border border-cyan-500/15 bg-black/60 p-6 md:p-8">
+              <div className="mb-4 text-lg font-medium text-cyan-100">
+                Try the Demo
+              </div>
+
+              <form className="grid gap-4">
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  className="rounded-xl border border-cyan-500/20 bg-black px-4 py-3 text-white outline-none placeholder:text-cyan-100/35 focus:border-cyan-400"
+                />
+                <input
+                  type="email"
+                  placeholder="Email Address"
+                  className="rounded-xl border border-cyan-500/20 bg-black px-4 py-3 text-white outline-none placeholder:text-cyan-100/35 focus:border-cyan-400"
+                />
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  className="rounded-xl border border-cyan-500/20 bg-black px-4 py-3 text-white outline-none placeholder:text-cyan-100/35 focus:border-cyan-400"
+                />
+                <textarea
+                  rows="5"
+                  placeholder="Tell us what you need..."
+                  className="rounded-xl border border-cyan-500/20 bg-black px-4 py-3 text-white outline-none placeholder:text-cyan-100/35 focus:border-cyan-400"
+                />
+                <button
+                  type="button"
+                  className="rounded-xl border border-cyan-400 bg-cyan-400/10 px-6 py-3 text-sm font-medium text-cyan-100 transition hover:bg-cyan-400/20"
+                >
+                  Submit Test Lead
+                </button>
+              </form>
+
+              <p className="mt-4 text-xs leading-6 text-cyan-100/50">
+                Form shell first. Wire this directly to your n8n webhook once the layout is approved.
+              </p>
+            </div>
+
+            <div className="space-y-4 rounded-2xl border border-cyan-500/15 bg-black/60 p-6 md:p-8">
+              <div className="text-lg font-medium text-cyan-100">
+                What happens after submission
+              </div>
+
+              <div className="grid gap-3 text-sm text-cyan-100/80">
+                <div className="rounded-xl border border-cyan-500/10 bg-cyan-500/[0.03] p-4">
+                  1. The inquiry is captured from the form.
+                </div>
+                <div className="rounded-xl border border-cyan-500/10 bg-cyan-500/[0.03] p-4">
+                  2. AI evaluates urgency, fit, and buyer intent.
+                </div>
+                <div className="rounded-xl border border-cyan-500/10 bg-cyan-500/[0.03] p-4">
+                  3. The lead is logged automatically.
+                </div>
+                <div className="rounded-xl border border-cyan-500/10 bg-cyan-500/[0.03] p-4">
+                  4. Priority is assigned and follow-up is triggered.
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.04] p-4 text-sm text-cyan-200">
+                This makes the automation lane tangible. It is not just a claim — it is something visitors can interact with.
+              </div>
+            </div>
           </div>
         </div>
       </div>
