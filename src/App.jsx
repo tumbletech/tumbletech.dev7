@@ -6,8 +6,12 @@ export default function App() {
   return (
     <div className="min-h-screen w-full bg-black text-white">
       <SiteNav />
-      <main id="home" className="relative min-h-[92vh] w-full overflow-hidden">
-        <HeroWithCallouts />
+      <main className="relative w-full overflow-hidden">
+        <section id="home" className="relative min-h-[92vh] w-full overflow-hidden">
+          <HeroWithCallouts />
+        </section>
+
+        <FeaturedProjectsSection />
       </main>
     </div>
   );
