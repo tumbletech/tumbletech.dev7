@@ -645,8 +645,6 @@ function FeaturedProjectsSection() {
                   4. Priority is assigned and follow-up is triggered.
                 </div>
               </div>
-
-              </div>
             </div>
           </div>
         </div>
