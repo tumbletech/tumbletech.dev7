@@ -12,6 +12,30 @@ export default function App() {
         </section>
 
         <FeaturedProjectsSection />
+
+        <section
+          id="contact"
+          className="border-t border-cyan-500/10 bg-black px-5 py-20 md:px-8"
+        >
+          <div className="mx-auto max-w-5xl rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-8 text-center md:p-12">
+            <div className="text-xs uppercase tracking-[0.28em] text-cyan-300">
+              Contact Us
+            </div>
+            <h2 className="mt-4 text-3xl md:text-4xl font-semibold text-white">
+              Let’s talk about your workflow
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-cyan-100/70 text-sm md:text-base leading-7">
+              Need automation, AI agents, a website, or a SaaS-style build? Reach
+              out and let’s discuss the right solution for your business.
+            </p>
+            <a
+              href="mailto:info@tumbletech.dev"
+              className="mt-8 inline-flex rounded-xl border border-cyan-400 bg-cyan-400/10 px-6 py-3 text-sm font-medium text-cyan-100 transition hover:bg-cyan-400/20"
+            >
+              Email Tumbletech
+            </a>
+          </div>
+        </section>
       </main>
     </div>
   );
@@ -116,10 +140,7 @@ function SiteNav() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ type: "spring", stiffness: 320, damping: 26 }}
-                  className="absolute left-1/2 -translate-x-1/2 mt-4 w-[720px]
-                             rounded-xl border border-cyan-500/20
-                             bg-black/80 backdrop-blur
-                             shadow-lg shadow-cyan-900/20 z-50"
+                  className="absolute left-1/2 -translate-x-1/2 mt-4 w-[720px] rounded-xl border border-cyan-500/20 bg-black/80 backdrop-blur shadow-lg shadow-cyan-900/20 z-50"
                   role="menu"
                 >
                   <div className="grid grid-cols-2 gap-4 p-4">
@@ -419,6 +440,7 @@ function FeaturedProjectsSection() {
     email: "",
     phone: "",
     message: "",
+    companyWebsite: "",
   });
 
   const [submitting, setSubmitting] = useState(false);
@@ -452,14 +474,53 @@ function FeaturedProjectsSection() {
     }));
   };
 
+  const isLikelyJunk = (text) => {
+    const trimmed = text.trim().toLowerCase();
+    const junkValues = ["test", "asdf", "123", "hello", "hi"];
+    return junkValues.includes(trimmed);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitStatus(null);
+
+    if (formData.companyWebsite) {
+      setSubmitStatus({
+        type: "error",
+        message: "Submission rejected.",
+      });
+      return;
+    }
 
     if (!formData.name || !formData.email || !formData.message) {
       setSubmitStatus({
         type: "error",
         message: "Please fill in your name, email, and message.",
+      });
+      return;
+    }
+
+    const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
+    if (!emailIsValid) {
+      setSubmitStatus({
+        type: "error",
+        message: "Please enter a valid email address.",
+      });
+      return;
+    }
+
+    if (formData.message.trim().length < 12) {
+      setSubmitStatus({
+        type: "error",
+        message: "Please enter a more detailed message.",
+      });
+      return;
+    }
+
+    if (isLikelyJunk(formData.message)) {
+      setSubmitStatus({
+        type: "error",
+        message: "Please enter a meaningful inquiry.",
       });
       return;
     }
@@ -495,6 +556,7 @@ function FeaturedProjectsSection() {
         email: "",
         phone: "",
         message: "",
+        companyWebsite: "",
       });
     } catch (error) {
       setSubmitStatus({
@@ -564,6 +626,16 @@ function FeaturedProjectsSection() {
               </div>
 
               <form onSubmit={handleSubmit} className="grid gap-4">
+                <input
+                  type="text"
+                  name="companyWebsite"
+                  value={formData.companyWebsite}
+                  onChange={handleChange}
+                  tabIndex="-1"
+                  autoComplete="off"
+                  className="hidden"
+                />
+
                 <input
                   type="text"
                   name="name"
@@ -646,6 +718,7 @@ function FeaturedProjectsSection() {
                 </div>
               </div>
             </div>
+          </div>
         </div>
       </div>
     </section>
