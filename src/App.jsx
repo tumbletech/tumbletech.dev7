@@ -430,43 +430,53 @@ function FeaturedProjectsSection() {
   const categories = [
     {
       title: "Automation",
-      text: "Workflow automation, integrations, reporting systems, lead capture flows, and operational pipelines that reduce manual work.", 
+      text: "Workflow automation, integrations, reporting systems, lead capture flows, and operational pipelines that reduce manual work.",
     },
     {
       title: "AI Agents Development",
-      text: "Customs AI assistants, triage agents, follow-up agents, support agents, and intelligent workflows tailored to business use cases.",
+      text: "Custom AI assistants, triage agents, follow-up agents, support agents, and intelligent workflows tailored to business use cases.",
     },
     {
       title: "Websites",
-      text: "Business websites, landing pages, showcase sites, portals, and web experiences built for clarity, speed, and clarity.",
+      text: "Business websites, landing pages, showcase sites, portals, and web experiences built for clarity, speed, and credibility.",
     },
     {
       title: "SaaS",
       text: "Internal tools, MVPs, dashboards, subscription-ready systems, and software products designed around real operational problems.",
     },
   ];
-  
+
   return (
-    <section id="projects" className="bg-black px-5 py-20 md:px-8 border-t border-cyan-500/10">
-      <div className="mx-auto max-w-7x1">
+    <section
+      id="projects"
+      className="bg-black px-5 py-20 md:px-8 border-t border-cyan-500/10"
+    >
+      <div className="mx-auto max-w-7xl">
         <div className="text-center">
           <div className="text-xs uppercase tracking-[0.28em] text-cyan-300">
             Featured Projects
           </div>
-          <h2 className="mt-4 text-3xl, md:text-4xl font-semibold text-white">
-            Four lanes of build capacity
+
+          <h2 className="mt-4 text-3xl md:text-4xl font-semibold text-white">
+            Four lanes of build capability
           </h2>
+
           <p className="mt-4 text-cyan-100/70 max-w-3xl mx-auto text-sm md:text-base leading-7">
-            Tumbletech builds across automation, AI agents, websites, and SaaS. Below is a live spotlight from the automation lane.
+            Tumbletech builds across automation, AI agents, websites, and SaaS.
+            Below is a live spotlight from the automation lane.
           </p>
-          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        </div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {categories.map((item) => (
             <div
               key={item.title}
               className="rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-6"
             >
               <h3 className="text-xl font-semibold text-white">{item.title}</h3>
-              <p className="mt-4 text-sm leading-7 text-cyan-100/75">{item.text}</p>
+              <p className="mt-4 text-sm leading-7 text-cyan-100/75">
+                {item.text}
+              </p>
               <div className="mt-6 h-[2px] w-14 bg-cyan-400/70" />
             </div>
           ))}
@@ -482,8 +492,9 @@ function FeaturedProjectsSection() {
           </h3>
 
           <p className="mt-4 text-sm leading-7 text-cyan-100/75 max-w-3xl">
-            A working automation concept that captures inquiries, evaluates buyer intent with AI,
-            logs the submission automatically, and helps prioritize serious leads faster.
+            A working automation concept that captures inquiries, evaluates buyer
+            intent with AI, logs the submission automatically, and helps
+            prioritize serious leads faster.
           </p>
 
           <div className="mt-8 grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
@@ -522,7 +533,8 @@ function FeaturedProjectsSection() {
               </form>
 
               <p className="mt-4 text-xs leading-6 text-cyan-100/50">
-                Form shell first. Wire this directly to your n8n webhook once the layout is approved.
+                Form shell first. Wire this directly to your n8n webhook once the
+                layout is approved.
               </p>
             </div>
 
@@ -547,13 +559,16 @@ function FeaturedProjectsSection() {
               </div>
 
               <div className="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.04] p-4 text-sm text-cyan-200">
-                This makes the automation lane tangible. It is not just a claim — it is something visitors can interact with.
+                This makes the automation lane tangible. It is not just a claim —
+                it is something visitors can interact with.
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+  );
+}
 
 /* ======================= CONNECTOR ======================= */
 function Connector({ start, end, delay = 0 }) {
