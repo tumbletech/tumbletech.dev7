@@ -716,6 +716,10 @@ function FeaturedProjectsSection() {
                 <div className="rounded-xl border border-cyan-500/10 bg-cyan-500/[0.03] p-4">
                   4. Priority is assigned and follow-up is triggered.
                 </div>
+                <div className="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.04] p-4 text-sm text-cyan-200">
+                  This makes the automation lane tangible. It is not just a claim —
+                  it is something visitors can interact with.
+                </div>
               </div>
             </div>
           </div>
