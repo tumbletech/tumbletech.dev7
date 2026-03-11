@@ -646,7 +646,6 @@ function FeaturedProjectsSection() {
                 </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </section>
