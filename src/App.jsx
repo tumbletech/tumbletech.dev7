@@ -74,12 +74,10 @@ function SiteNav() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-cyan-500/20 bg-black/60 backdrop-blur">
       <nav className="flex w-full items-center px-8 py-4">
-        {/* LEFT — LOGO */}
         <div className="flex items-center gap-3 flex-shrink-0">
           <img src="/001.mainlogo-b.png" alt="Tumbletech" className="h-8 w-auto" />
         </div>
 
-        {/* CENTER — NAV LINKS */}
         <ul className="hidden md:flex flex-1 justify-center items-center gap-8 text-cyan-300">
           <li>
             <a href="#home" className="hover:text-cyan-200">
@@ -87,7 +85,6 @@ function SiteNav() {
             </a>
           </li>
 
-          {/* SERVICES DROPDOWN */}
           <li
             className="relative"
             ref={menuRef}
@@ -139,9 +136,7 @@ function SiteNav() {
                             <li key={idx}>
                               <a
                                 href={it.href}
-                                className="block rounded px-2 py-1
-                                           hover:bg-cyan-400/10
-                                           hover:text-cyan-100"
+                                className="block rounded px-2 py-1 hover:bg-cyan-400/10 hover:text-cyan-100"
                                 onClick={() => setOpen(false)}
                               >
                                 {it.label}
@@ -169,7 +164,6 @@ function SiteNav() {
           </li>
         </ul>
 
-        {/* RIGHT — SOCIAL ICONS */}
         <div className="flex items-center gap-4 flex-shrink-0">
           <SocialIcons />
         </div>
@@ -218,7 +212,6 @@ function SocialIcons() {
   );
 }
 
-
 /* ===================== HERO + CALLOUTS (RESPONSIVE) ===================== */
 function HeroWithCallouts() {
   const [showCallouts, setShowCallouts] = useState(false);
@@ -227,14 +220,12 @@ function HeroWithCallouts() {
   const wrapRef = useRef(null);
   const [dims, setDims] = useState({ w: 1920, h: 1080 });
 
-  // spin + staged callouts
   useEffect(() => {
     spin.start({ rotate: 360 }, { repeat: Infinity, ease: "linear", duration: 8 });
     const t = setTimeout(() => setShowCallouts(true), 2000);
     return () => clearTimeout(t);
   }, [spin]);
 
-  // close on outside click
   useEffect(() => {
     const onDown = (e) => {
       if (active && !e.target.closest(".card-trigger, .card-panel")) setActive(null);
@@ -243,7 +234,6 @@ function HeroWithCallouts() {
     return () => document.removeEventListener("mousedown", onDown);
   }, [active]);
 
-  // observe container size (so we can scale positions)
   useEffect(() => {
     const ro = new ResizeObserver((entries) => {
       for (const entry of entries) {
@@ -256,35 +246,30 @@ function HeroWithCallouts() {
   }, []);
 
   const isMobile = dims.w < 768;
-  const isTablet = dims.w >= 768 && dims.w < 1280;
   const isDesktop = dims.w >= 1280;
 
-  // FRACTION-BASED layouts (scale with container dims)
-  // values are proportions of width/height
   const layoutDesktop = {
     center: { x: 0.5, y: 0.46 },
     boxes: [
       { id: "auto", label: "Automate Your Business", box: { x: 0.083, y: 0.13, w: 0.146, h: 70 } },
-      { id: "idea", label: "From Idea to App",       box: { x: 0.083, y: 0.398, w: 0.135, h: 70 } },
-      { id: "web",  label: "Web Apps & Websites",    box: { x: 0.615, y: 0.148, w: 0.156, h: 70 } },
-      { id: "ai",   label: "AI-Powered Solutions",   box: { x: 0.615, y: 0.565, w: 0.156, h: 70 } },
+      { id: "idea", label: "From Idea to App", box: { x: 0.083, y: 0.398, w: 0.135, h: 70 } },
+      { id: "web", label: "Web Apps & Websites", box: { x: 0.615, y: 0.148, w: 0.156, h: 70 } },
+      { id: "ai", label: "AI-Powered Solutions", box: { x: 0.615, y: 0.565, w: 0.156, h: 70 } },
     ],
   };
 
-  // bring items closer for tablets (fits 1366 × 768 nicely)
   const layoutTablet = {
     center: { x: 0.5, y: 0.48 },
     boxes: [
-      { id: "auto", label: "Automate Your Business", box: { x: 0.06,  y: 0.16, w: 0.30, h: 64 } },
-      { id: "idea", label: "From Idea to App",       box: { x: 0.06,  y: 0.44, w: 0.28, h: 64 } },
-      { id: "web",  label: "Web Apps & Websites",    box: { x: 0.64,  y: 0.20, w: 0.32, h: 64 } },
-      { id: "ai",   label: "AI-Powered Solutions",   box: { x: 0.64,  y: 0.60, w: 0.32, h: 64 } },
+      { id: "auto", label: "Automate Your Business", box: { x: 0.06, y: 0.16, w: 0.30, h: 64 } },
+      { id: "idea", label: "From Idea to App", box: { x: 0.06, y: 0.44, w: 0.28, h: 64 } },
+      { id: "web", label: "Web Apps & Websites", box: { x: 0.64, y: 0.20, w: 0.32, h: 64 } },
+      { id: "ai", label: "AI-Powered Solutions", box: { x: 0.64, y: 0.60, w: 0.32, h: 64 } },
     ],
   };
 
   const layout = isDesktop ? layoutDesktop : layoutTablet;
 
-  // narratives
   const narratives = {
     auto:
       "Free your team from repetitive, time-consuming tasks by letting technology handle them for you. From streamlining workflows and integrating apps to setting up smart triggers and dashboards, automation reduces errors, saves time, and lets you focus on growth.",
@@ -296,12 +281,11 @@ function HeroWithCallouts() {
       "Harness the power of artificial intelligence to work smarter, not harder. From chatbots and intelligent assistants to predictive insights and workflow automation, we design AI solutions that adapt to your business needs, streamline operations, and unlock new opportunities.",
   };
 
-  // helpers
   const pxBox = (fb) => ({
     x: fb.x * dims.w,
     y: fb.y * dims.h,
     w: fb.w * dims.w,
-    h: fb.h, // keep height in px for consistent text sizing
+    h: fb.h,
   });
 
   const center = useMemo(
@@ -327,7 +311,6 @@ function HeroWithCallouts() {
 
   return (
     <section ref={wrapRef} className="relative h-[calc(100vh-80px)] md:h-[calc(100vh-88px)]">
-      {/* center spinning logo */}
       <div className="absolute inset-0 grid place-items-center z-10 pointer-events-none">
         <motion.img
           animate={spin}
@@ -338,7 +321,6 @@ function HeroWithCallouts() {
         />
       </div>
 
-      {/* ===== MOBILE: stacked accordions ===== */}
       {isMobile && (
         <div className="px-4 pt-28 space-y-3">
           {["auto", "idea", "web", "ai"].map((id) => (
@@ -356,7 +338,6 @@ function HeroWithCallouts() {
         </div>
       )}
 
-      {/* ===== TABLET & DESKTOP: connectors + callouts ===== */}
       {!isMobile && showCallouts && (
         <>
           <svg
@@ -431,6 +412,18 @@ function HeroWithCallouts() {
 
 /* ======================= FEATURED PROJECTS / DEMO ======================= */
 function FeaturedProjectsSection() {
+  const WEBHOOK_URL = "https://tumbletech.app.n8n.cloud/webhook/lead-intake-v1";
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const [submitting, setSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
   const categories = [
     {
       title: "Automation",
@@ -449,6 +442,69 @@ function FeaturedProjectsSection() {
       text: "Internal tools, MVPs, dashboards, subscription-ready systems, and software products designed around real operational problems.",
     },
   ];
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitStatus(null);
+
+    if (!formData.name || !formData.email || !formData.message) {
+      setSubmitStatus({
+        type: "error",
+        message: "Please fill in your name, email, and message.",
+      });
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+
+      const response = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          source: "website",
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Submission failed.");
+      }
+
+      setSubmitStatus({
+        type: "success",
+        message: "Test lead submitted successfully. The system has received your inquiry.",
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+    } catch (error) {
+      setSubmitStatus({
+        type: "error",
+        message: "Something went wrong while submitting the form. Please try again.",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <section
@@ -507,38 +563,66 @@ function FeaturedProjectsSection() {
                 Try the Demo
               </div>
 
-              <form className="grid gap-4">
+              <form onSubmit={handleSubmit} className="grid gap-4">
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Your Name"
                   className="rounded-xl border border-cyan-500/20 bg-black px-4 py-3 text-white outline-none placeholder:text-cyan-100/35 focus:border-cyan-400"
                 />
+
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Email Address"
                   className="rounded-xl border border-cyan-500/20 bg-black px-4 py-3 text-white outline-none placeholder:text-cyan-100/35 focus:border-cyan-400"
                 />
+
                 <input
                   type="text"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
                   placeholder="Phone Number"
                   className="rounded-xl border border-cyan-500/20 bg-black px-4 py-3 text-white outline-none placeholder:text-cyan-100/35 focus:border-cyan-400"
                 />
+
                 <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   rows="5"
                   placeholder="Tell us what you need..."
                   className="rounded-xl border border-cyan-500/20 bg-black px-4 py-3 text-white outline-none placeholder:text-cyan-100/35 focus:border-cyan-400"
                 />
+
                 <button
-                  type="button"
-                  className="rounded-xl border border-cyan-400 bg-cyan-400/10 px-6 py-3 text-sm font-medium text-cyan-100 transition hover:bg-cyan-400/20"
+                  type="submit"
+                  disabled={submitting}
+                  className="rounded-xl border border-cyan-400 bg-cyan-400/10 px-6 py-3 text-sm font-medium text-cyan-100 transition hover:bg-cyan-400/20 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Submit Test Lead
+                  {submitting ? "Submitting..." : "Submit Test Lead"}
                 </button>
               </form>
 
+              {submitStatus && (
+                <div
+                  className={`mt-4 rounded-xl border px-4 py-3 text-sm leading-6 ${
+                    submitStatus.type === "success"
+                      ? "border-green-500/30 bg-green-500/10 text-green-300"
+                      : "border-red-500/30 bg-red-500/10 text-red-300"
+                  }`}
+                >
+                  {submitStatus.message}
+                </div>
+              )}
+
               <p className="mt-4 text-xs leading-6 text-cyan-100/50">
-                Form shell first. Wire this directly to your n8n webhook once the
-                layout is approved.
+                Submit a sample inquiry to test how the lead capture flow behaves.
               </p>
             </div>
 
@@ -562,9 +646,6 @@ function FeaturedProjectsSection() {
                 </div>
               </div>
 
-              <div className="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.04] p-4 text-sm text-cyan-200">
-                This makes the automation lane tangible. It is not just a claim —
-                it is something visitors can interact with.
               </div>
             </div>
           </div>
