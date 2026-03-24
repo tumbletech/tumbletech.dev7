@@ -409,12 +409,13 @@ function HeroWithCallouts() {
 
           <div className="flex justify-center pt-4 pb-2">
             <motion.img
-              animate={spin}
-              src="/002.favicon-b.png"
-              alt="Tumbletech Spinning Logo"
-              className="h-24 w-24 sm:h-28 sm:w-28"
-              style={{ transformOrigin: "center" }}
-            />
+							animate={{ rotate: 360 }}
+							transition={{ repeat: Infinity, ease: "linear", duration: 8 }}
+							src="/002.favicon-b.png"
+							alt="Tumbletech Spinning Logo"
+							className="h-24 w-24 sm:h-28 sm:w-28"
+							style={{ transformOrigin: "center" }}
+						/>
           </div>
         </div>
       )}
