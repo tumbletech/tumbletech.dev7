@@ -234,139 +234,7 @@ function SocialIcons() {
 }
 
 /* ===================== HERO + CALLOUTS (RESPONSIVE) ===================== */
-function HeroWithCallouts() {
-  const [showCallouts, setShowCallouts] = useState(false);
-  const [active, setActive] = useState(null);
-  const spin = useAnimation();
-  const wrapRef = useRef(null);
-  const [dims, setDims] = useState({ w: 1920, h: 1080 });
 
-  useEffect(() => {
-    spin.start({ rotate: 360 }, { repeat: Infinity, ease: "linear", duration: 8 });
-    const t = setTimeout(() => setShowCallouts(true), 2000);
-    return () => clearTimeout(t);
-  }, [spin]);
-
-  useEffect(() => {
-    const onDown = (e) => {
-      if (active && !e.target.closest(".card-trigger, .card-panel")) setActive(null);
-    };
-    document.addEventListener("mousedown", onDown);
-    return () => document.removeEventListener("mousedown", onDown);
-  }, [active]);
-
-  useEffect(() => {
-    const ro = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const { width, height } = entry.contentRect;
-        setDims({ w: width, h: height });
-      }
-    });
-    if (wrapRef.current) ro.observe(wrapRef.current);
-    return () => ro.disconnect();
-  }, []);
-
-  const isMobile = dims.w < 768;
-  const isDesktop = dims.w >= 1280;
-
-  const layoutDesktop = {
-    center: { x: 0.5, y: 0.46 },
-    boxes: [
-      { id: "auto", label: "Automate Your Business", box: { x: 0.083, y: 0.13, w: 0.146, h: 70 } },
-      { id: "idea", label: "From Idea to App", box: { x: 0.083, y: 0.398, w: 0.135, h: 70 } },
-      { id: "web", label: "Web Apps & Websites", box: { x: 0.615, y: 0.148, w: 0.156, h: 70 } },
-      { id: "ai", label: "AI-Powered Solutions", box: { x: 0.615, y: 0.565, w: 0.156, h: 70 } },
-    ],
-  };
-
-  const layoutTablet = {
-    center: { x: 0.5, y: 0.48 },
-    boxes: [
-      { id: "auto", label: "Automate Your Business", box: { x: 0.06, y: 0.16, w: 0.30, h: 64 } },
-      { id: "idea", label: "From Idea to App", box: { x: 0.06, y: 0.44, w: 0.28, h: 64 } },
-      { id: "web", label: "Web Apps & Websites", box: { x: 0.64, y: 0.20, w: 0.32, h: 64 } },
-      { id: "ai", label: "AI-Powered Solutions", box: { x: 0.64, y: 0.60, w: 0.32, h: 64 } },
-    ],
-  };
-
-  const layout = isDesktop ? layoutDesktop : layoutTablet;
-
-  const narratives = {
-    auto:
-      "Free your team from repetitive, time-consuming tasks by letting technology handle them for you. From streamlining workflows and integrating apps to setting up smart triggers and dashboards, automation reduces errors, saves time, and lets you focus on growth.",
-    idea:
-      "Turn your vision into a working product step by step. We help you validate ideas, design user experiences, and build applications that are ready to launch. From concept sketches to deployed solutions, we bring structure and speed to the journey of making your idea real.",
-    web:
-      "Build fast, secure, and scalable digital experiences tailored to your needs. From sleek landing pages to complex web apps, we design and develop solutions that look great, perform across devices, and grow with your business.",
-    ai:
-      "Harness the power of artificial intelligence to work smarter, not harder. From chatbots and intelligent assistants to predictive insights and workflow automation, we design AI solutions that adapt to your business needs, streamline operations, and unlock new opportunities.",
-  };
-
-  const pxBox = (fb) => ({
-    x: fb.x * dims.w,
-    y: fb.y * dims.h,
-    w: fb.w * dims.w,
-    h: fb.h,
-  });
-
-  const center = useMemo(
-    () => ({ x: layout.center.x * dims.w, y: layout.center.y * dims.h }),
-    [layout.center.x, layout.center.y, dims.w, dims.h]
-  );
-
-  const startPointForBox = (boxPx) => {
-    const isLeft = boxPx.x + boxPx.w / 2 < center.x;
-    const inset = 8;
-    return {
-      x: isLeft ? boxPx.x + boxPx.w - inset : boxPx.x + inset,
-      y: boxPx.y + boxPx.h / 2,
-    };
-  };
-
-  const endOnCircle = (start, r = Math.min(dims.w, dims.h) * 0.045 + 60) => {
-    const dx = center.x - start.x;
-    const dy = center.y - start.y;
-    const mag = Math.hypot(dx, dy) || 1;
-    return { x: center.x - (dx / mag) * r, y: center.y - (dy / mag) * r };
-  };
-
-  return (
-    <section ref={wrapRef} className="relative h-[calc(100vh-80px)] md:h-[calc(100vh-88px)]">
-      <div className="absolute inset-0 grid place-items-center z-10 pointer-events-none">
-        <motion.img
-          animate={spin}
-          src="/002.favicon-b.png"
-          alt="Tumbletech Spinning Logo"
-          className="h-28 w-28 md:h-36 md:w-36 lg:h-40 lg:w-40 origin-center"
-          style={{ transformOrigin: "center" }}
-        />
-      </div>
-
-      {isMobile && (
-        <div className="px-4 pt-28 space-y-3">
-          {["auto", "idea", "web", "ai"].map((id) => (
-            <details key={id} className="rounded-lg border border-cyan-400/40 bg-black/60">
-              <summary className="list-none px-4 py-3 text-base text-white flex items-center justify-between">
-                {id === "auto" && "Automate Your Business"}
-                {id === "idea" && "From Idea to App"}
-                {id === "web" && "Web Apps & Websites"}
-                {id === "ai" && "AI-Powered Solutions"}
-                <span className="text-cyan-300">▾</span>
-              </summary>
-              <div className="px-4 pb-4 text-sm text-cyan-100/90">{narratives[id]}</div>
-            </details>
-          ))}
-        </div>
-      )}
-
-      {!isMobile && showCallouts && (
-        <>
-          <svg
-            className="absolute inset-0 z-0 pointer-events-none"
-            viewBox={`0 0 ${dims.w} ${dims.h}`}
-            preserveAspectRatio="none"
-          >
-            {layout.boxes.map((c, i) => {
 function HeroWithCallouts() {
   const [showCallouts, setShowCallouts] = useState(false);
   const [active, setActive] = useState(null);
@@ -487,7 +355,6 @@ function HeroWithCallouts() {
           : "h-[calc(100vh-80px)] md:h-[calc(100vh-88px)] overflow-hidden"
       }`}
     >
-      {/* Desktop / large-screen floating logo */}
       {!isMobile && (
         <div className="absolute inset-0 grid place-items-center z-10 pointer-events-none">
           <motion.img
@@ -500,7 +367,6 @@ function HeroWithCallouts() {
         </div>
       )}
 
-      {/* Mobile / tablet stacked layout */}
       {isMobile && (
         <div className="mx-auto max-w-5xl space-y-4">
           {["auto", "idea", "web", "ai"].map((id) => (
@@ -541,7 +407,6 @@ function HeroWithCallouts() {
             </div>
           ))}
 
-          {/* Logo placed AFTER all 4 cards */}
           <div className="flex justify-center pt-4 pb-2">
             <motion.img
               animate={spin}
@@ -554,7 +419,6 @@ function HeroWithCallouts() {
         </div>
       )}
 
-      {/* Desktop interactive map */}
       {!isMobile && showCallouts && (
         <>
           <svg
