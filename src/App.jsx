@@ -42,67 +42,75 @@ export default function App() {
 }
 
 /* ============================= NAV ============================= */
-function SiteNav() {
-  const [open, setOpen] = useState(false);
-  const menuRef = useRef(null);
 
-  useEffect(() => {
-    const onDocClick = (e) => {
-      if (open && menuRef.current && !menuRef.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", onDocClick);
-    return () => document.removeEventListener("mousedown", onDocClick);
-  }, [open]);
+    function SiteNav() {
+		const [servicesOpen, setServicesOpen] = useState(false);
+		const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+		const menuRef = useRef(null);
 
-  const services = [
-    {
-      id: "automation",
-      title: "Automate Your Business",
-      items: [
-        { label: "Workflow Automation (n8n / Make / Zapier)", href: "#svc-automation" },
-        { label: "System Integration (Sheets, CRMs, APIs)", href: "#svc-automation" },
-        { label: "Dashboards & Reporting", href: "#svc-automation" },
-      ],
-    },
-    {
-      id: "idea",
-      title: "From Idea to App",
-      items: [
-        { label: "MVP Strategy & Roadmapping", href: "#svc-idea" },
-        { label: "Prototyping (No-code / Low-code)", href: "#svc-idea" },
-        { label: "Custom SaaS Build (select scope)", href: "#svc-idea" },
-      ],
-    },
-    {
-      id: "web",
-      title: "Web Apps & Websites",
-      items: [
-        { label: "Business Websites & Landing Pages", href: "#svc-web" },
-        { label: "Web Applications & Client Portals", href: "#svc-web" },
-        { label: "E-commerce & Payments", href: "#svc-web" },
-      ],
-    },
-    {
-      id: "ai",
-      title: "AI-Powered Solutions",
-      items: [
-        { label: "Chatbots & Assistants", href: "#svc-ai" },
-        { label: "Predictive Insights & Analytics", href: "#svc-ai" },
-        { label: "AI-driven Workflow Enhancements", href: "#svc-ai" },
-      ],
-    },
-  ];
+		useEffect(() => {
+		const onDocClick = (e) => {
+    	if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setServicesOpen(false);
+    	}
+	};
+		document.addEventListener("mousedown", onDocClick);
+		return () => document.removeEventListener("mousedown", onDocClick);
+		}, []);
+
+	const services = [
+		{
+    		id: "automation",
+    		title: "Automate Your Business",
+    		items: [
+    			{ label: "Workflow Automation (n8n / Make / Zapier)", href: "#svc-automation" },
+    			{ label: "System Integration (Sheets, CRMs, APIs)", href: "#svc-automation" },
+    			{ label: "Dashboards & Reporting", href: "#svc-automation" },
+    		],
+		},
+		{
+    		id: "idea",
+    		title: "From Idea to App",
+    		items: [
+    			{ label: "MVP Strategy & Roadmapping", href: "#svc-idea" },
+    			{ label: "Prototyping (No-code / Low-code)", href: "#svc-idea" },
+    			{ label: "Custom SaaS Build (select scope)", href: "#svc-idea" },
+    		],
+		},
+		{
+    		id: "web",
+    		title: "Web Apps & Websites",
+    		items: [
+    			{ label: "Business Websites & Landing Pages", href: "#svc-web" },
+    			{ label: "Web Applications & Client Portals", href: "#svc-web" },
+    			{ label: "E-commerce & Payments", href: "#svc-web" },
+    		],
+		},
+		{
+    		id: "ai",
+    		title: "AI-Powered Solutions",
+    		items: [
+    			{ label: "Chatbots & Assistants", href: "#svc-ai" },
+    			{ label: "Predictive Insights & Analytics", href: "#svc-ai" },
+    			{ label: "AI-driven Workflow Enhancements", href: "#svc-ai" },
+    		],
+		},
+	];
+
+  const closeAllMenus = () => {
+    setMobileMenuOpen(false);
+    setServicesOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-cyan-500/20 bg-black/60 backdrop-blur">
-      <nav className="flex w-full items-center px-8 py-4">
+      <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 md:px-6 lg:px-8">
         <div className="flex items-center gap-3 flex-shrink-0">
           <img src="/001.mainlogo-b.png" alt="Tumbletech" className="h-8 w-auto" />
         </div>
 
-        <ul className="hidden md:flex flex-1 justify-center items-center gap-8 text-cyan-300">
+        {/* Desktop nav */}
+        <ul className="hidden lg:flex flex-1 justify-center items-center gap-8 text-cyan-300">
           <li>
             <a href="#home" className="hover:text-cyan-200">
               Home
@@ -112,35 +120,35 @@ function SiteNav() {
           <li
             className="relative"
             ref={menuRef}
-            onMouseEnter={() => setOpen(true)}
-            onMouseLeave={() => setOpen(false)}
+            onMouseEnter={() => setServicesOpen(true)}
+            onMouseLeave={() => setServicesOpen(false)}
           >
             <button
               type="button"
-              onClick={() => setOpen((v) => !v)}
+              onClick={() => setServicesOpen((v) => !v)}
               className="inline-flex items-center gap-1 hover:text-cyan-200"
               aria-haspopup="menu"
-              aria-expanded={open}
+              aria-expanded={servicesOpen}
             >
               Services
               <svg
                 width="14"
                 height="14"
                 viewBox="0 0 20 20"
-                className={`transition ${open ? "rotate-180" : ""}`}
+                className={`transition ${servicesOpen ? "rotate-180" : ""}`}
               >
                 <path d="M5 7l5 6 5-6" stroke="currentColor" strokeWidth="2" fill="none" />
               </svg>
             </button>
 
             <AnimatePresence>
-              {open && (
+              {servicesOpen && (
                 <motion.div
                   initial={{ opacity: 0, y: -6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ type: "spring", stiffness: 320, damping: 26 }}
-                  className="absolute left-1/2 -translate-x-1/2 mt-4 w-[720px] rounded-xl border border-cyan-500/20 bg-black/80 backdrop-blur shadow-lg shadow-cyan-900/20 z-50"
+                  className="absolute left-1/2 z-50 mt-4 w-[720px] -translate-x-1/2 rounded-xl border border-cyan-500/20 bg-black/80 shadow-lg shadow-cyan-900/20 backdrop-blur"
                   role="menu"
                 >
                   <div className="grid grid-cols-2 gap-4 p-4">
@@ -149,7 +157,7 @@ function SiteNav() {
                         key={group.id}
                         className="rounded-lg border border-cyan-500/15 p-3"
                       >
-                        <div className="mb-2 text-cyan-200 font-medium">
+                        <div className="mb-2 font-medium text-cyan-200">
                           {group.title}
                         </div>
                         <ul className="space-y-1.5 text-sm text-cyan-100/90">
@@ -158,7 +166,7 @@ function SiteNav() {
                               <a
                                 href={it.href}
                                 className="block rounded px-2 py-1 hover:bg-cyan-400/10 hover:text-cyan-100"
-                                onClick={() => setOpen(false)}
+                                onClick={() => setServicesOpen(false)}
                               >
                                 {it.label}
                               </a>
@@ -185,13 +193,112 @@ function SiteNav() {
           </li>
         </ul>
 
-        <div className="flex items-center gap-4 flex-shrink-0">
+        {/* Desktop social */}
+        <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
           <SocialIcons />
         </div>
+
+        {/* Mobile / tablet hamburger */}
+        <button
+          type="button"
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileMenuOpen}
+          onClick={() => setMobileMenuOpen((prev) => !prev)}
+          className="flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/30 bg-cyan-400/5 text-cyan-200 transition hover:bg-cyan-400/10 lg:hidden"
+        >
+          <div className="relative h-5 w-5">
+            <span
+              className={`absolute left-0 top-0 h-[2px] w-5 bg-current transition-all duration-300 ${
+                mobileMenuOpen ? "top-2 rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`absolute left-0 top-2 h-[2px] w-5 bg-current transition-all duration-300 ${
+                mobileMenuOpen ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <span
+              className={`absolute left-0 top-4 h-[2px] w-5 bg-current transition-all duration-300 ${
+                mobileMenuOpen ? "top-2 -rotate-45" : ""
+              }`}
+            />
+          </div>
+        </button>
       </nav>
+
+      {/* Mobile / tablet menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="border-t border-cyan-500/10 bg-black/95 lg:hidden"
+          >
+            <nav className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4 md:px-6">
+              <a
+                href="#home"
+                onClick={closeAllMenus}
+                className="rounded-xl px-4 py-3 text-base text-cyan-100/85 transition hover:bg-cyan-400/10 hover:text-cyan-300"
+              >
+                Home
+              </a>
+
+              <div className="rounded-xl border border-cyan-500/15 bg-cyan-500/[0.03] p-3">
+                <div className="mb-3 px-1 text-sm font-medium uppercase tracking-[0.2em] text-cyan-300">
+                  Services
+                </div>
+                <div className="space-y-3">
+                  {services.map((group) => (
+                    <div key={group.id}>
+                      <div className="mb-1 px-1 text-sm font-medium text-cyan-200">
+                        {group.title}
+                      </div>
+                      <div className="space-y-1">
+                        {group.items.map((it, idx) => (
+                          <a
+                            key={idx}
+                            href={it.href}
+                            onClick={closeAllMenus}
+                            className="block rounded-lg px-3 py-2 text-sm text-cyan-100/85 transition hover:bg-cyan-400/10 hover:text-cyan-100"
+                          >
+                            {it.label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <a
+                href="#projects"
+                onClick={closeAllMenus}
+                className="rounded-xl px-4 py-3 text-base text-cyan-100/85 transition hover:bg-cyan-400/10 hover:text-cyan-300"
+              >
+                Featured Projects
+              </a>
+
+              <a
+                href="#contact"
+                onClick={closeAllMenus}
+                className="rounded-xl px-4 py-3 text-base text-cyan-100/85 transition hover:bg-cyan-400/10 hover:text-cyan-300"
+              >
+                Contact Us
+              </a>
+
+              <div className="pt-2">
+                <SocialIconsMobile />
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
+    
 
 /* ===================== SOCIAL ICONS ===================== */
 function SocialIcons() {
