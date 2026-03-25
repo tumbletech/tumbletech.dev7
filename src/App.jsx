@@ -862,31 +862,32 @@ function FeaturedProjectsSection() {
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {categories.map((item) => (
-              <a
-				  key={item.title}
-				  href={
-				    item.title === "Automation"
-				      ? "#svc-automation"
-				      : item.title === "AI Agents Development"
-				      ? "#svc-ai"
-				      : item.title === "Websites"
-				      ? "#svc-web"
-				      : "#svc-saas"
-				  }
-				  className="group rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-6 transition duration-200 hover:border-cyan-400/40 hover:bg-cyan-500/[0.06] hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(34,199,218,0.08)] cursor-pointer block"
-				>
-	              <h3 className="text-xl font-semibold text-white transition group-hover:text-cyan-200">
-					  {item.title}
-					</h3>
-					<p className="mt-4 text-sm leading-7 text-cyan-100/75 transition group-hover:text-cyan-100/90">
-					  {item.text}
-					</p>
-					<div className="mt-6 h-[2px] w-14 bg-cyan-400/70 transition group-hover:w-20 group-hover:bg-cyan-300" />
-	            </div>
-			</a>
-          ))}
-        </div>
+		  {categories.map((item) => (
+		    <a
+		      key={item.title}
+		      href={
+		        item.title === "Automation"
+		          ? "#svc-automation"
+		          : item.title === "AI Agents Development"
+		          ? "#svc-ai"
+		          : item.title === "Websites"
+		          ? "#svc-web"
+		          : "#svc-saas"
+		      }
+		      className="group block cursor-pointer rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-6 transition-all duration-200 hover:-translate-y-1 hover:border-cyan-300 hover:bg-cyan-500/[0.08] hover:shadow-[0_0_30px_rgba(34,199,218,0.12)]"
+		    >
+		      <h3 className="text-xl font-semibold text-white transition group-hover:text-cyan-200">
+		        {item.title}
+		      </h3>
+		
+		      <p className="mt-4 text-sm leading-7 text-cyan-100/75 transition group-hover:text-cyan-100/90">
+		        {item.text}
+		      </p>
+		
+		      <div className="mt-6 h-[2px] w-14 bg-cyan-400/70 transition-all duration-200 group-hover:w-20 group-hover:bg-cyan-300" />
+		    </a>
+		  ))}
+		</div>
 
         <div className="mt-16 rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-6 md:p-8">
           <div className="inline-flex rounded-full border border-cyan-500/20 bg-cyan-500/[0.05] px-3 py-1 text-xs uppercase tracking-[0.2em] text-cyan-300">
