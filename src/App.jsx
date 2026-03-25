@@ -863,7 +863,6 @@ function FeaturedProjectsSection() {
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {categories.map((item) => (
-            <div
               <a
 				  key={item.title}
 				  href={
@@ -877,15 +876,15 @@ function FeaturedProjectsSection() {
 				  }
 				  className="group rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-6 transition duration-200 hover:border-cyan-400/40 hover:bg-cyan-500/[0.06] hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(34,199,218,0.08)] cursor-pointer block"
 				>
-            >
-              <h3 className="text-xl font-semibold text-white transition group-hover:text-cyan-200">
-				  {item.title}
-				</h3>
-				<p className="mt-4 text-sm leading-7 text-cyan-100/75 transition group-hover:text-cyan-100/90">
-				  {item.text}
-				</p>
-				<div className="mt-6 h-[2px] w-14 bg-cyan-400/70 transition group-hover:w-20 group-hover:bg-cyan-300" />
-            </div>
+	              <h3 className="text-xl font-semibold text-white transition group-hover:text-cyan-200">
+					  {item.title}
+					</h3>
+					<p className="mt-4 text-sm leading-7 text-cyan-100/75 transition group-hover:text-cyan-100/90">
+					  {item.text}
+					</p>
+					<div className="mt-6 h-[2px] w-14 bg-cyan-400/70 transition group-hover:w-20 group-hover:bg-cyan-300" />
+	            </div>
+			</a>
           ))}
         </div>
 
