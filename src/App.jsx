@@ -11,6 +11,8 @@ export default function App() {
           <HeroWithCallouts />
         </section>
 
+		<AboutSection />  
+
         <FeaturedProjectsSection />
 
         <section
@@ -111,87 +113,94 @@ export default function App() {
 
         {/* Desktop nav */}
         <ul className="hidden lg:flex flex-1 justify-center items-center gap-8 text-cyan-300">
-          <li>
-            <a href="#home" className="hover:text-cyan-200">
-              Home
-            </a>
-          </li>
-
-          <li
-            className="relative"
-            ref={menuRef}
-            onMouseEnter={() => setServicesOpen(true)}
-            onMouseLeave={() => setServicesOpen(false)}
-          >
-            <button
-              type="button"
-              onClick={() => setServicesOpen((v) => !v)}
-              className="inline-flex items-center gap-1 hover:text-cyan-200"
-              aria-haspopup="menu"
-              aria-expanded={servicesOpen}
-            >
-              Services
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 20 20"
-                className={`transition ${servicesOpen ? "rotate-180" : ""}`}
-              >
-                <path d="M5 7l5 6 5-6" stroke="currentColor" strokeWidth="2" fill="none" />
-              </svg>
-            </button>
-
-            <AnimatePresence>
-              {servicesOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ type: "spring", stiffness: 320, damping: 26 }}
-                  className="absolute left-1/2 z-50 mt-4 w-[720px] -translate-x-1/2 rounded-xl border border-cyan-500/20 bg-black/80 shadow-lg shadow-cyan-900/20 backdrop-blur"
-                  role="menu"
-                >
-                  <div className="grid grid-cols-2 gap-4 p-4">
-                    {services.map((group) => (
-                      <div
-                        key={group.id}
-                        className="rounded-lg border border-cyan-500/15 p-3"
-                      >
-                        <div className="mb-2 font-medium text-cyan-200">
-                          {group.title}
-                        </div>
-                        <ul className="space-y-1.5 text-sm text-cyan-100/90">
-                          {group.items.map((it, idx) => (
-                            <li key={idx}>
-                              <a
-                                href={it.href}
-                                className="block rounded px-2 py-1 hover:bg-cyan-400/10 hover:text-cyan-100"
-                                onClick={() => setServicesOpen(false)}
-                              >
-                                {it.label}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </li>
-
-          <li>
-            <a href="#projects" className="hover:text-cyan-200">
-              Featured Projects
-            </a>
-          </li>
-          <li>
-            <a href="#contact" className="hover:text-cyan-200">
-              Contact Us
-            </a>
-          </li>
-        </ul>
+		  <li>
+		    <a href="#home" className="hover:text-cyan-200">
+		      Home
+		    </a>
+		  </li>
+		
+		  <li
+		    className="relative"
+		    ref={menuRef}
+		    onMouseEnter={() => setServicesOpen(true)}
+		    onMouseLeave={() => setServicesOpen(false)}
+		  >
+		    <button
+		      type="button"
+		      onClick={() => setServicesOpen((v) => !v)}
+		      className="inline-flex items-center gap-1 hover:text-cyan-200"
+		      aria-haspopup="menu"
+		      aria-expanded={servicesOpen}
+		    >
+		      Services
+		      <svg
+		        width="14"
+		        height="14"
+		        viewBox="0 0 20 20"
+		        className={`transition ${servicesOpen ? "rotate-180" : ""}`}
+		      >
+		        <path d="M5 7l5 6 5-6" stroke="currentColor" strokeWidth="2" fill="none" />
+		      </svg>
+		    </button>
+		
+		    <AnimatePresence>
+		      {servicesOpen && (
+		        <motion.div
+		          initial={{ opacity: 0, y: -6 }}
+		          animate={{ opacity: 1, y: 0 }}
+		          exit={{ opacity: 0, y: -6 }}
+		          transition={{ type: "spring", stiffness: 320, damping: 26 }}
+		          className="absolute left-1/2 z-50 mt-4 w-[720px] -translate-x-1/2 rounded-xl border border-cyan-500/20 bg-black/80 shadow-lg shadow-cyan-900/20 backdrop-blur"
+		          role="menu"
+		        >
+		          <div className="grid grid-cols-2 gap-4 p-4">
+		            {services.map((group) => (
+		              <div
+		                key={group.id}
+		                className="rounded-lg border border-cyan-500/15 p-3"
+		              >
+		                <div className="mb-2 font-medium text-cyan-200">
+		                  {group.title}
+		                </div>
+		                <ul className="space-y-1.5 text-sm text-cyan-100/90">
+		                  {group.items.map((it, idx) => (
+		                    <li key={idx}>
+		                      <a
+		                        href={it.href}
+		                        className="block rounded px-2 py-1 hover:bg-cyan-400/10 hover:text-cyan-100"
+		                        onClick={() => setServicesOpen(false)}
+		                      >
+		                        {it.label}
+		                      </a>
+		                    </li>
+		                  ))}
+		                </ul>
+		              </div>
+		            ))}
+		          </div>
+		        </motion.div>
+		      )}
+		    </AnimatePresence>
+		  </li>
+		
+		  <li>
+		    <a href="#about" className="hover:text-cyan-200">
+		      About
+		    </a>
+		  </li>
+		
+		  <li>
+		    <a href="#projects" className="hover:text-cyan-200">
+		      Featured Projects
+		    </a>
+		  </li>
+		
+		  <li>
+		    <a href="#contact" className="hover:text-cyan-200">
+		      Contact Us
+		    </a>
+		  </li>
+		</ul>
 
         {/* Desktop social */}
         <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
@@ -271,6 +280,14 @@ export default function App() {
                   ))}
                 </div>
               </div>
+
+			  <a
+  				href="#about"
+ 				 onClick={closeAllMenus}
+ 				 className="rounded-xl px-4 py-3 text-base text-cyan-100/85 transition hover:bg-cyan-400/10 hover:text-cyan-300"
+				>
+  				 About
+			 </a>
 
               <a
                 href="#projects"
@@ -598,6 +615,48 @@ function HeroWithCallouts() {
     </section>
   );
 }
+
+/* ===================== ABOUT SECTION ===================== */
+	function AboutSection() {
+	  return (
+	    <section
+	      id="about"
+	      className="border-t border-cyan-500/10 bg-black px-5 py-20 md:px-8"
+	    >
+	      <div className="mx-auto max-w-5xl rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-8 md:p-12">
+	        <div className="text-xs uppercase tracking-[0.28em] text-cyan-300">
+	          About
+	        </div>
+	
+	        <h2 className="mt-4 text-3xl md:text-4xl font-semibold text-white">
+	          About Tumbletech
+	        </h2>
+	
+	        <p className="mt-6 text-cyan-100/80 text-sm md:text-base leading-8">
+	          <span className="font-medium text-white">
+	            Tumbletech is an automation, AI development, and web development
+	            consulting firm operating in the Philippines.
+	          </span>{" "}
+	          We help businesses, founders, and organizations turn ideas, manual
+	          workflows, and operational bottlenecks into working systems.
+	        </p>
+	
+	        <p className="mt-5 text-cyan-100/70 text-sm md:text-base leading-8">
+	          From workflow automation and AI-powered solutions to full-stack web
+	          applications, our focus is practical technology — tools that reduce
+	          friction, improve execution, and move projects forward.
+	        </p>
+	
+	        <p className="mt-5 text-cyan-100/70 text-sm md:text-base leading-8">
+	          We don’t build for noise. We build for function, clarity, and
+	          real-world use.
+	        </p>
+	
+	        <div className="mt-8 h-[2px] w-16 bg-cyan-400/70" />
+	      </div>
+	    </section>
+	  );
+	}
 
 /* ======================= FEATURED PROJECTS / DEMO ======================= */
 function FeaturedProjectsSection() {
