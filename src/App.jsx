@@ -692,11 +692,6 @@ function HeroWithCallouts() {
 	          friction, improve execution, and move projects forward.
 	        </p>
 	
-	        <p className="mt-5 text-cyan-100/70 text-sm md:text-base leading-8">
-	          We don’t build for noise. We build for function, clarity, and
-	          real-world use.
-	        </p>
-	
 	        <div className="mt-8 h-[2px] w-16 bg-cyan-400/70" />
 	      </div>
 	    </section>
@@ -848,7 +843,7 @@ function FeaturedProjectsSection() {
 
           <p className="mt-4 text-cyan-100/70 max-w-3xl mx-auto text-sm md:text-base leading-7">
             Tumbletech builds across automation, AI agents, websites, and SaaS.
-            Below is a live spotlight from the automation lane.
+            Click to any of the cards to view our featured projects.
           </p>
         </div>
 
