@@ -16,28 +16,101 @@ export default function App() {
         <FeaturedProjectsSection />
 
         <section
-          id="contact"
-          className="border-t border-cyan-500/10 bg-black px-5 py-20 md:px-8"
-        >
-          <div className="mx-auto max-w-5xl rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-8 text-center md:p-12">
-            <div className="text-xs uppercase tracking-[0.28em] text-cyan-300">
-              Contact Us
-            </div>
-            <h2 className="mt-4 text-3xl md:text-4xl font-semibold text-white">
-              Let’s talk about your workflow
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-cyan-100/70 text-sm md:text-base leading-7">
-              Need automation, AI agents, a website, or a SaaS-style build? Reach
-              out and let’s discuss the right solution for your business.
-            </p>
-            <a
-              href="mailto:info@tumbletech.dev"
-              className="mt-8 inline-flex rounded-xl border border-cyan-400 bg-cyan-400/10 px-6 py-3 text-sm font-medium text-cyan-100 transition hover:bg-cyan-400/20"
-            >
-              Email Tumbletech
-            </a>
-          </div>
-        </section>
+		  id="contact"
+		  className="border-t border-cyan-500/10 bg-black px-5 py-20 md:px-8"
+		>
+		  <div className="mx-auto max-w-5xl rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-8 md:p-12">
+		    <div className="text-center">
+		      <div className="text-xs uppercase tracking-[0.28em] text-cyan-300">
+		        Contact Us
+		      </div>
+		
+		      <h2 className="mt-4 text-3xl font-semibold text-white md:text-4xl">
+		        Let’s talk about your workflow
+		      </h2>
+		
+		      <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-cyan-100/70 md:text-base">
+		        Need automation, AI agents, a website, or a custom system? Send us a
+		        message and let’s discuss the right solution for your business.
+		      </p>
+		    </div>
+		
+		    <form className="mt-10 space-y-5">
+		      <div className="grid gap-5 md:grid-cols-2">
+		        <div>
+		          <label htmlFor="name" className="mb-2 block text-sm text-cyan-200">
+		            Name
+		          </label>
+		          <input
+		            id="name"
+		            name="name"
+		            type="text"
+		            placeholder="Your name"
+		            className="w-full rounded-xl border border-cyan-500/20 bg-black/50 px-4 py-3 text-sm text-white outline-none transition placeholder:text-cyan-100/35 focus:border-cyan-400"
+		          />
+		        </div>
+		
+		        <div>
+		          <label htmlFor="email" className="mb-2 block text-sm text-cyan-200">
+		            Email
+		          </label>
+		          <input
+		            id="email"
+		            name="email"
+		            type="email"
+		            placeholder="you@example.com"
+		            className="w-full rounded-xl border border-cyan-500/20 bg-black/50 px-4 py-3 text-sm text-white outline-none transition placeholder:text-cyan-100/35 focus:border-cyan-400"
+		          />
+		        </div>
+		      </div>
+		
+		      <div>
+		        <label htmlFor="phone" className="mb-2 block text-sm text-cyan-200">
+		          Phone
+		        </label>
+		        <input
+		          id="phone"
+		          name="phone"
+		          type="text"
+		          placeholder="Optional"
+		          className="w-full rounded-xl border border-cyan-500/20 bg-black/50 px-4 py-3 text-sm text-white outline-none transition placeholder:text-cyan-100/35 focus:border-cyan-400"
+		        />
+		      </div>
+		
+		      <div>
+		        <label htmlFor="message" className="mb-2 block text-sm text-cyan-200">
+		          Message
+		        </label>
+		        <textarea
+		          id="message"
+		          name="message"
+		          rows="6"
+		          placeholder="Tell us what you need built, automated, or improved."
+		          className="w-full resize-none rounded-xl border border-cyan-500/20 bg-black/50 px-4 py-3 text-sm text-white outline-none transition placeholder:text-cyan-100/35 focus:border-cyan-400"
+		        />
+		      </div>
+		
+		      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+		        <button
+		          type="submit"
+		          className="inline-flex items-center justify-center rounded-xl border border-cyan-400 bg-cyan-400/10 px-6 py-3 text-sm font-medium text-cyan-100 transition hover:bg-cyan-400/20"
+		        >
+		          Send Inquiry
+		        </button>
+		
+		        <div className="text-sm text-cyan-100/50">
+		          Or email us directly at{" "}
+		          <a
+		            href="mailto:admin@tumbletech.dev"
+		            className="text-cyan-300 transition hover:text-cyan-200"
+		          >
+		            admin@tumbletech.dev
+		          </a>
+		        </div>
+		      </div>
+		    </form>
+		  </div>
+		</section>
       </main>
     </div>
   );
