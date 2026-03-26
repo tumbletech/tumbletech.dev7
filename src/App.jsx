@@ -705,15 +705,6 @@ function HeroWithCallouts() {
 
 /* ======================= FEATURED PROJECTS / DEMO ======================= */
 function FeaturedProjectsSection() {
-  const WEBHOOK_URL = "https://tumbletech.app.n8n.cloud/webhook/lead-intake-v1";
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-    companyWebsite: "",
-  });
 
   const [submitting, setSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
