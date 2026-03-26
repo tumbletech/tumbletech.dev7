@@ -16,6 +16,9 @@ dist-ssr
 .env
 .env*
 
+# php/composer
+vendor/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
