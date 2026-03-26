@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
+import ContactSection  from "./components/ContactSection";
 
 /* ============================= APP ============================= */
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
           <HeroWithCallouts />
         </section>
 
+<<<<<<< HEAD
 		<AboutSection />  
 
         <FeaturedProjectsSection />
@@ -111,6 +113,15 @@ export default function App() {
 		    </form>
 		  </div>
 		</section>
+=======
+		    <AboutSection />  
+
+        <FeaturedProjectsSection />
+
+        <ContactSection />
+
+      
+>>>>>>> 7fac894 (Contact form + backend setup)
       </main>
     </div>
   );
@@ -476,6 +487,7 @@ function SocialIconsMobile() {
 }
 
 /* ===================== HERO + CALLOUTS (RESPONSIVE) ===================== */
+<<<<<<< HEAD
 
 function HeroWithCallouts() {
   const [showCallouts, setShowCallouts] = useState(false);
@@ -494,22 +506,102 @@ function HeroWithCallouts() {
   useEffect(() => {
     const onDown = (e) => {
       if (active && !e.target.closest(".card-trigger, .card-panel")) setActive(null);
-    };
-    document.addEventListener("mousedown", onDown);
-    return () => document.removeEventListener("mousedown", onDown);
-  }, [active]);
+=======
 
+  function HeroWithCallouts() {
+    const [showCallouts, setShowCallouts] = useState(false);
+    const [active, setActive] = useState(null);
+    const [mobileOpen, setMobileOpen] = useState({});
+    const spin = useAnimation();
+    const wrapRef = useRef(null);
+    const [dims, setDims] = useState({ w: 1920, h: 1080 });
+
+    useEffect(() => {
+      spin.start({ rotate: 360 }, { repeat: Infinity, ease: "linear", duration: 8 });
+      const t = setTimeout(() => setShowCallouts(true), 2000);
+      return () => clearTimeout(t);
+    }, [spin]);
+
+    useEffect(() => {
+      const onDown = (e) => {
+        if (active && !e.target.closest(".card-trigger, .card-panel")) setActive(null);
+      };
+      document.addEventListener("mousedown", onDown);
+      return () => document.removeEventListener("mousedown", onDown);
+    }, [active]);
+
+    useEffect(() => {
+      const ro = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          const { width, height } = entry.contentRect;
+          setDims({ w: width, h: height });
+        }
+      });
+      if (wrapRef.current) ro.observe(wrapRef.current);
+      return () => ro.disconnect();
+    }, []);
+
+    const isMobile = dims.w < 1024;
+    const isDesktop = dims.w >= 1280;
+
+    const layoutDesktop = {
+      center: { x: 0.5, y: 0.46 },
+      boxes: [
+        { id: "auto", label: "Automate Your Business", box: { x: 0.083, y: 0.13, w: 0.146, h: 70 } },
+        { id: "idea", label: "From Idea to App", box: { x: 0.083, y: 0.398, w: 0.135, h: 70 } },
+        { id: "web", label: "Web Apps & Websites", box: { x: 0.615, y: 0.148, w: 0.156, h: 70 } },
+        { id: "ai", label: "AI-Powered Solutions", box: { x: 0.615, y: 0.565, w: 0.156, h: 70 } },
+      ],
+>>>>>>> 7fac894 (Contact form + backend setup)
+    };
+
+<<<<<<< HEAD
   useEffect(() => {
     const ro = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const { width, height } = entry.contentRect;
         setDims({ w: width, h: height });
       }
-    });
-    if (wrapRef.current) ro.observe(wrapRef.current);
-    return () => ro.disconnect();
-  }, []);
+=======
+    const layoutTablet = {
+      center: { x: 0.5, y: 0.48 },
+      boxes: [
+        { id: "auto", label: "Automate Your Business", box: { x: 0.06, y: 0.16, w: 0.30, h: 64 } },
+        { id: "idea", label: "From Idea to App", box: { x: 0.06, y: 0.44, w: 0.28, h: 64 } },
+        { id: "web", label: "Web Apps & Websites", box: { x: 0.64, y: 0.20, w: 0.32, h: 64 } },
+        { id: "ai", label: "AI-Powered Solutions", box: { x: 0.64, y: 0.60, w: 0.32, h: 64 } },
+      ],
+    };
 
+    const layout = isDesktop ? layoutDesktop : layoutTablet;
+
+    const narratives = {
+      auto:
+        "Free your team from repetitive, time-consuming tasks by letting technology handle them for you. From streamlining workflows and integrating apps to setting up smart triggers and dashboards, automation reduces errors, saves time, and lets you focus on growth.",
+      idea:
+        "Turn your vision into a working product step by step. We help you validate ideas, design user experiences, and build applications that are ready to launch. From concept sketches to deployed solutions, we bring structure and speed to the journey of making your idea real.",
+      web:
+        "Build fast, secure, and scalable digital experiences tailored to your needs. From sleek landing pages to complex web apps, we design and develop solutions that look great, perform across devices, and grow with your business.",
+      ai:
+        "Harness the power of artificial intelligence to work smarter, not harder. From chatbots and intelligent assistants to predictive insights and workflow automation, we design AI solutions that adapt to your business needs, streamline operations, and unlock new opportunities.",
+    };
+
+    const labels = {
+      auto: "Automate Your Business",
+      idea: "From Idea to App",
+      web: "Web Apps & Websites",
+      ai: "AI-Powered Solutions",
+    };
+
+    const pxBox = (fb) => ({
+      x: fb.x * dims.w,
+      y: fb.y * dims.h,
+      w: fb.w * dims.w,
+      h: fb.h,
+>>>>>>> 7fac894 (Contact form + backend setup)
+    });
+
+<<<<<<< HEAD
   const isMobile = dims.w < 1024;
   const isDesktop = dims.w >= 1280;
 
@@ -571,16 +663,348 @@ function HeroWithCallouts() {
     return {
       x: isLeft ? boxPx.x + boxPx.w - inset : boxPx.x + inset,
       y: boxPx.y + boxPx.h / 2,
+=======
+    const center = useMemo(
+      () => ({ x: layout.center.x * dims.w, y: layout.center.y * dims.h }),
+      [layout.center.x, layout.center.y, dims.w, dims.h]
+    );
+
+    const startPointForBox = (boxPx) => {
+      const isLeft = boxPx.x + boxPx.w / 2 < center.x;
+      const inset = 8;
+      return {
+        x: isLeft ? boxPx.x + boxPx.w - inset : boxPx.x + inset,
+        y: boxPx.y + boxPx.h / 2,
+      };
+>>>>>>> 7fac894 (Contact form + backend setup)
     };
+
+    const endOnCircle = (start, r = Math.min(dims.w, dims.h) * 0.045 + 60) => {
+      const dx = center.x - start.x;
+      const dy = center.y - start.y;
+      const mag = Math.hypot(dx, dy) || 1;
+      return { x: center.x - (dx / mag) * r, y: center.y - (dy / mag) * r };
+    };
+
+    const toggleMobileCard = (id) => {
+      setMobileOpen((prev) => ({
+        ...prev,
+        [id]: !prev[id],
+      }));
+    };
+
+    return (
+      <section
+        ref={wrapRef}
+        className={`relative w-full border-t border-cyan-500/10 ${
+          isMobile
+            ? "px-4 py-6 h-auto min-h-0 overflow-visible"
+            : "h-[calc(100vh-80px)] md:h-[calc(100vh-88px)] overflow-hidden"
+        }`}
+      >
+        {!isMobile && (
+          <div className="absolute inset-0 grid place-items-center z-10 pointer-events-none">
+            <motion.img
+              animate={spin}
+              src="/002.favicon-b.png"
+              alt="Tumbletech Spinning Logo"
+              className="h-28 w-28 md:h-36 md:w-36 lg:h-40 lg:w-40 origin-center"
+              style={{ transformOrigin: "center" }}
+            />
+          </div>
+        )}
+
+        {isMobile && (
+          <div className="mx-auto max-w-5xl space-y-4">
+            {["auto", "idea", "web", "ai"].map((id) => (
+              <div
+                key={id}
+                className="overflow-hidden rounded-xl border border-cyan-400/40 bg-black/60"
+              >
+                <button
+                  type="button"
+                  onClick={() => toggleMobileCard(id)}
+                  className="flex w-full items-center justify-between gap-4 px-4 py-4 text-left text-lg text-white"
+                >
+                  <span className="leading-snug">{labels[id]}</span>
+                  <span
+                    className={`shrink-0 text-cyan-300 transition-transform duration-300 ${
+                      mobileOpen[id] ? "rotate-180" : ""
+                    }`}
+                  >
+                    ▾
+                  </span>
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {mobileOpen[id] && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-4 pb-5 text-base leading-8 text-cyan-100/90">
+                        {narratives[id]}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+
+            <div className="flex justify-center pt-4 pb-2">
+              <motion.img
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, ease: "linear", duration: 8 }}
+                src="/002.favicon-b.png"
+                alt="Tumbletech Spinning Logo"
+                className="h-24 w-24 sm:h-28 sm:w-28"
+                style={{ transformOrigin: "center" }}
+              />
+            </div>
+          </div>
+        )}
+
+        {!isMobile && showCallouts && (
+          <>
+            <svg
+              className="absolute inset-0 z-0 pointer-events-none"
+              viewBox={`0 0 ${dims.w} ${dims.h}`}
+              preserveAspectRatio="none"
+            >
+              {layout.boxes.map((c, i) => {
+                const b = pxBox(c.box);
+                const start = startPointForBox(b);
+                const end = endOnCircle(start);
+                return <Connector key={`line-${c.id}`} start={start} end={end} delay={0.15 + i * 0.12} />;
+              })}
+            </svg>
+
+            {layout.boxes.map((c, i) => {
+              const b = pxBox(c.box);
+              const hasCard = narratives[c.id] !== undefined;
+              const cls =
+                "absolute z-20 flex items-center justify-center rounded-lg border border-cyan-400/60 text-white text-[15px] lg:text-lg tracking-wide shadow-[0_0_0_1px_rgba(56,189,248,0.25)] transition hover:border-cyan-300 hover:shadow-[0_0_0_1px_rgba(125,211,252,0.35)]";
+              const style = { left: b.x, top: b.y, width: b.w, height: b.h };
+
+              const motionProps = {
+                initial: { opacity: 0, y: 12, scale: 0.98 },
+                animate: { opacity: 1, y: 0, scale: 1 },
+                transition: { delay: 0.22 + i * 0.12, type: "spring", stiffness: 240, damping: 24 },
+              };
+
+              return hasCard ? (
+                <motion.button
+                  key={c.id}
+                  type="button"
+                  onClick={() => setActive(active === c.id ? null : c.id)}
+                  className={`card-trigger ${cls}`}
+                  style={style}
+                  {...motionProps}
+                >
+                  {c.label}
+                </motion.button>
+              ) : (
+                <motion.a key={c.id} href="#services" className={cls} style={style} {...motionProps}>
+                  {c.label}
+                </motion.a>
+              );
+            })}
+
+            <AnimatePresence>
+              {layout.boxes.map((c) => {
+                const b = pxBox(c.box);
+                if (active !== c.id) return null;
+                return (
+                  <motion.div
+                    key={`${c.id}-card`}
+                    className="card-panel absolute z-30 max-w-[420px] rounded-xl border border-cyan-400/40 bg-black/70 backdrop-blur px-5 py-4 leading-relaxed text-cyan-100 shadow-[0_10px_30px_rgba(0,0,0,0.35)]"
+                    style={{ left: b.x, top: b.y + b.h + 10 }}
+                    initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                    transition={{ type: "spring", stiffness: 260, damping: 26 }}
+                  >
+                    <div className="text-sm">{narratives[c.id]}</div>
+                    <div className="mt-3 h-[2px] w-16 bg-cyan-400/70" />
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </>
+        )}
+      </section>
+    );
+  }
+
+/* ===================== ABOUT SECTION ===================== */
+	function AboutSection() {
+	  return (
+	    <section
+	      id="about"
+	      className="border-t border-cyan-500/10 bg-black px-5 py-20 md:px-8"
+	    >
+	      <div className="mx-auto max-w-5xl rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-8 md:p-12">
+	        <div className="text-xs uppercase tracking-[0.28em] text-cyan-300">
+	          About
+	        </div>
+	
+	        <h2 className="mt-4 text-3xl md:text-4xl font-semibold text-white">
+	          About Tumbletech
+	        </h2>
+	
+	        <p className="mt-6 text-cyan-100/80 text-sm md:text-base leading-8">
+	          <span className="font-medium text-white">
+	            Tumbletech is an automation, AI development, and web development
+	            consulting firm operating in the Philippines.
+	          </span>{" "}
+	          We help businesses, founders, and organizations turn ideas, manual
+	          workflows, and operational bottlenecks into working systems.
+	        </p>
+	
+	        <p className="mt-5 text-cyan-100/70 text-sm md:text-base leading-8">
+	          From workflow automation and AI-powered solutions to full-stack web
+	          applications, our focus is practical technology — tools that reduce
+	          friction, improve execution, and move projects forward.
+	        </p>
+	
+	        <div className="mt-8 h-[2px] w-16 bg-cyan-400/70" />
+	      </div>
+	    </section>
+	  );
+	}
+
+/* ======================= FEATURED PROJECTS / DEMO ======================= */
+function FeaturedProjectsSection() {
+
+  const [submitting, setSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  const categories = [
+    {
+      title: "Automation",
+      text: "Workflow automation, integrations, reporting systems, lead capture flows, and operational pipelines that reduce manual work.",
+    },
+    {
+      title: "AI Agents Development",
+      text: "Custom AI assistants, triage agents, follow-up agents, support agents, and intelligent workflows tailored to business use cases.",
+    },
+    {
+      title: "Websites",
+      text: "Business websites, landing pages, showcase sites, portals, and web experiences built for clarity, speed, and credibility.",
+    },
+    {
+      title: "SaaS",
+      text: "Internal tools, MVPs, dashboards, subscription-ready systems, and software products designed around real operational problems.",
+    },
+  ];
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const endOnCircle = (start, r = Math.min(dims.w, dims.h) * 0.045 + 60) => {
-    const dx = center.x - start.x;
-    const dy = center.y - start.y;
-    const mag = Math.hypot(dx, dy) || 1;
-    return { x: center.x - (dx / mag) * r, y: center.y - (dy / mag) * r };
+  const isLikelyJunk = (text) => {
+    const trimmed = text.trim().toLowerCase();
+    const junkValues = ["test", "asdf", "123", "hello", "hi"];
+    return junkValues.includes(trimmed);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitStatus(null);
+
+    if (formData.companyWebsite) {
+      setSubmitStatus({
+        type: "error",
+        message: "Submission rejected.",
+      });
+      return;
+    }
+
+    if (!formData.name || !formData.email || !formData.message) {
+      setSubmitStatus({
+        type: "error",
+        message: "Please fill in your name, email, and message.",
+      });
+      return;
+    }
+
+    const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
+    if (!emailIsValid) {
+      setSubmitStatus({
+        type: "error",
+        message: "Please enter a valid email address.",
+      });
+      return;
+    }
+
+    if (formData.message.trim().length < 12) {
+      setSubmitStatus({
+        type: "error",
+        message: "Please enter a more detailed message.",
+      });
+      return;
+    }
+
+    if (isLikelyJunk(formData.message)) {
+      setSubmitStatus({
+        type: "error",
+        message: "Please enter a meaningful inquiry.",
+      });
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+
+      const response = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          source: "website",
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Submission failed.");
+      }
+
+      setSubmitStatus({
+        type: "success",
+        message: "Test lead submitted successfully. The system has received your inquiry.",
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+        companyWebsite: "",
+      });
+    } catch (error) {
+      setSubmitStatus({
+        type: "error",
+        message: "Something went wrong while submitting the form. Please try again.",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+<<<<<<< HEAD
   const toggleMobileCard = (id) => {
     setMobileOpen((prev) => ({
       ...prev,
@@ -659,9 +1083,30 @@ function HeroWithCallouts() {
 							style={{ transformOrigin: "center" }}
 						/>
           </div>
-        </div>
-      )}
+=======
+  return (
+    <section
+      id="projects"
+      className="bg-black px-5 py-20 md:px-8 border-t border-cyan-500/10"
+    >
+      <div className="mx-auto max-w-7xl">
+        <div className="text-center">
+          <div className="text-xs uppercase tracking-[0.28em] text-cyan-300">
+            Featured Projects
+          </div>
 
+          <h2 className="mt-4 text-3xl md:text-4xl font-semibold text-white">
+            Four lanes of build capability
+          </h2>
+
+          <p className="mt-4 text-cyan-100/70 max-w-3xl mx-auto text-sm md:text-base leading-7">
+            Tumbletech builds across automation, AI agents, websites, and SaaS.
+            Click to any of the cards to view our featured projects.
+          </p>
+>>>>>>> 7fac894 (Contact form + backend setup)
+        </div>
+
+<<<<<<< HEAD
       {!isMobile && showCallouts && (
         <>
           <svg
@@ -730,6 +1175,37 @@ function HeroWithCallouts() {
           </AnimatePresence>
         </>
       )}
+=======
+        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+		  {categories.map((item) => (
+		    <a
+		      key={item.title}
+		      href={
+		        item.title === "Automation"
+		          ? "#svc-automation"
+		          : item.title === "AI Agents Development"
+		          ? "#svc-ai"
+		          : item.title === "Websites"
+		          ? "#svc-web"
+		          : "#svc-saas"
+		      }
+		      className="group block cursor-pointer rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-6 transition-all duration-200 hover:-translate-y-1 hover:border-cyan-300 hover:bg-cyan-500/[0.08] hover:shadow-[0_0_30px_rgba(34,199,218,0.12)]"
+		    >
+		      <h3 className="text-xl font-semibold text-white transition group-hover:text-cyan-200">
+		        {item.title}
+		      </h3>
+		
+		      <p className="mt-4 text-sm leading-7 text-cyan-100/75 transition group-hover:text-cyan-100/90">
+		        {item.text}
+		      </p>
+		
+		      <div className="mt-6 h-[2px] w-14 bg-cyan-400/70 transition-all duration-200 group-hover:w-20 group-hover:bg-cyan-300" />
+		    </a>
+		  ))}
+		</div>
+        
+      </div>
+>>>>>>> 7fac894 (Contact form + backend setup)
     </section>
   );
 }
