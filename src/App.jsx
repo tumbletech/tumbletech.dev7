@@ -18,6 +18,107 @@ export default function App() {
         <AboutSection />
         <FeaturedProjectsSection />
         <ContactSection />
+        <footer className="border-t border-cyan-500/10 bg-black px-5 py-12 md:px-8">
+          <div className="mx-auto flex max-w-7xl flex-col gap-10 md:flex-row md:justify-between">
+            {/* Left Side */}
+            <div className="max-w-md">
+              <div className="flex items-center gap-3">
+                <img
+                  src="/001.mainlogo-b.png"
+                  alt="Tumbletech"
+                  className="h-8 w-auto"
+                />
+              </div>
+
+              <p className="mt-5 text-sm leading-7 text-cyan-100/70">
+                Tumbletech is an automation, AI development, and web development
+                consulting firm operating in the Philippines.
+              </p>
+
+              <p className="mt-4 text-sm text-cyan-300">
+                admin@tumbletech.dev
+              </p>
+
+              <div className="mt-5">
+                <SocialIconsMobile />
+              </div>
+            </div>
+
+            {/* Right Side */}
+            <div className="grid grid-cols-2 gap-10 text-sm text-cyan-100/75 md:grid-cols-3">
+              <div>
+                <div className="mb-3 text-xs uppercase tracking-[0.2em] text-cyan-300">
+                  Navigate
+                </div>
+
+                <ul className="space-y-2">
+                  <li>
+                    <a href="#home" className="transition hover:text-cyan-200">
+                      Home
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#about" className="transition hover:text-cyan-200">
+                      About
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#projects" className="transition hover:text-cyan-200">
+                      Featured Projects
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#contact" className="transition hover:text-cyan-200">
+                      Contact
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <div className="mb-3 text-xs uppercase tracking-[0.2em] text-cyan-300">
+                  Services
+                </div>
+
+                <ul className="space-y-2">
+                  <li>Automation</li>
+                  <li>AI Agents</li>
+                  <li>Websites</li>
+                  <li>SaaS</li>
+                </ul>
+              </div>
+
+              <div>
+                <div className="mb-3 text-xs uppercase tracking-[0.2em] text-cyan-300">
+                  Legal
+                </div>
+
+                <ul className="space-y-2">
+                  <li>
+                    <a
+                      href="/privacy-policy"
+                      className="transition hover:text-cyan-200"
+                    >
+                      Privacy Policy
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/user-agreement"
+                      className="transition hover:text-cyan-200"
+                    >
+                      User Agreement
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="mx-auto mt-10 max-w-7xl border-t border-cyan-500/10 pt-6 text-center text-xs text-cyan-100/40">
+            © {new Date().getFullYear()} Tumbletech. All rights reserved.
+          </div>
+        </footer>
       </main>
     </div>
   );
