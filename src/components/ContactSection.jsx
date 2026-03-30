@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ENDPOINT_URL = "/api/contact.php";
+const ENDPOINT_URL = "/api/contact";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
