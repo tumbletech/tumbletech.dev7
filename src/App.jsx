@@ -5,8 +5,8 @@ import { Routes, Route, Link } from "react-router-dom";
 import UserAgreement from "./pages/UserAgreement";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 
-/* ======================= USER AGREEMENT ======================== */
-export default function App () {
+/* ======================= ROUTES ======================== */
+export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
@@ -16,7 +16,7 @@ export default function App () {
   );
 }
 
-/* ============================= APP ============================= */
+/* ============================= HOMEPAGE ============================= */
 function Homepage() {
   return (
     <div className="min-h-screen w-full bg-black text-white">
@@ -32,9 +32,9 @@ function Homepage() {
         <AboutSection />
         <FeaturedProjectsSection />
         <ContactSection />
+
         <footer className="border-t border-cyan-500/10 bg-black px-5 py-12 md:px-8">
           <div className="mx-auto flex max-w-7xl flex-col gap-10 md:flex-row md:justify-between">
-            {/* Left Side */}
             <div className="max-w-md">
               <div className="flex items-center gap-3">
                 <img
@@ -49,16 +49,13 @@ function Homepage() {
                 consulting firm operating in the Philippines.
               </p>
 
-              <p className="mt-4 text-sm text-cyan-300">
-                admin@tumbletech.dev
-              </p>
+              <p className="mt-4 text-sm text-cyan-300">admin@tumbletech.dev</p>
 
               <div className="mt-5">
                 <SocialIconsMobile />
               </div>
             </div>
 
-            {/* Right Side */}
             <div className="grid grid-cols-2 gap-10 text-sm text-cyan-100/75 md:grid-cols-3">
               <div>
                 <div className="mb-3 text-xs uppercase tracking-[0.2em] text-cyan-300">
@@ -77,12 +74,18 @@ function Homepage() {
                     </a>
                   </li>
                   <li>
-                    <a href="#projects" className="transition hover:text-cyan-200">
+                    <a
+                      href="#projects"
+                      className="transition hover:text-cyan-200"
+                    >
                       Featured Projects
                     </a>
                   </li>
                   <li>
-                    <a href="#contact" className="transition hover:text-cyan-200">
+                    <a
+                      href="#contact"
+                      className="transition hover:text-cyan-200"
+                    >
                       Contact
                     </a>
                   </li>
@@ -507,7 +510,7 @@ function SocialIconsMobile() {
   );
 }
 
-/* ===================== HERO + CALLOUTS (RESPONSIVE) ===================== */
+/* ===================== HERO + CALLOUTS ===================== */
 function HeroWithCallouts() {
   const [showCallouts, setShowCallouts] = useState(false);
   const [active, setActive] = useState(null);
@@ -517,7 +520,10 @@ function HeroWithCallouts() {
   const [dims, setDims] = useState({ w: 1920, h: 1080 });
 
   useEffect(() => {
-    spin.start({ rotate: 360 }, { repeat: Infinity, ease: "linear", duration: 8 });
+    spin.start(
+      { rotate: 360 },
+      { repeat: Infinity, ease: "linear", duration: 8 }
+    );
     const t = setTimeout(() => setShowCallouts(true), 2000);
     return () => clearTimeout(t);
   }, [spin]);
@@ -547,53 +553,53 @@ function HeroWithCallouts() {
   const isDesktop = dims.w >= 1280;
 
   const layoutDesktop = {
-    center: { x: 0.5, y: 0.46 },
+    center: { x: 0.5, y: 0.68 },
     boxes: [
       {
         id: "auto",
         label: "Automate Your Business",
-        box: { x: 0.083, y: 0.13, w: 0.146, h: 70 },
+        box: { x: 0.10, y: 0.35, w: 0.15, h: 70 },
       },
       {
         id: "idea",
         label: "From Idea to App",
-        box: { x: 0.083, y: 0.398, w: 0.135, h: 70 },
+        box: { x: 0.10, y: 0.80, w: 0.14, h: 70 },
       },
       {
         id: "web",
         label: "Web Apps & Websites",
-        box: { x: 0.615, y: 0.148, w: 0.156, h: 70 },
+        box: { x: 0.72, y: 0.35, w: 0.16, h: 70 },
       },
       {
         id: "ai",
         label: "AI-Powered Solutions",
-        box: { x: 0.615, y: 0.565, w: 0.156, h: 70 },
+        box: { x: 0.72, y: 0.82, w: 0.16, h: 70 },
       },
     ],
   };
 
   const layoutTablet = {
-    center: { x: 0.5, y: 0.48 },
+    center: { x: 0.5, y: 0.68 },
     boxes: [
       {
         id: "auto",
         label: "Automate Your Business",
-        box: { x: 0.06, y: 0.16, w: 0.3, h: 64 },
+        box: { x: 0.06, y: 0.24, w: 0.3, h: 64 },
       },
       {
         id: "idea",
         label: "From Idea to App",
-        box: { x: 0.06, y: 0.44, w: 0.28, h: 64 },
+        box: { x: 0.06, y: 0.56, w: 0.28, h: 64 },
       },
       {
         id: "web",
         label: "Web Apps & Websites",
-        box: { x: 0.64, y: 0.2, w: 0.32, h: 64 },
+        box: { x: 0.64, y: 0.28, w: 0.32, h: 64 },
       },
       {
         id: "ai",
         label: "AI-Powered Solutions",
-        box: { x: 0.64, y: 0.6, w: 0.32, h: 64 },
+        box: { x: 0.64, y: 0.76, w: 0.32, h: 64 },
       },
     ],
   };
@@ -659,11 +665,40 @@ function HeroWithCallouts() {
       className={`relative w-full border-t border-cyan-500/10 ${
         isMobile
           ? "h-auto min-h-0 overflow-visible px-4 py-6"
-          : "h-[calc(100vh-80px)] overflow-hidden md:h-[calc(100vh-88px)]"
+          : "min-h-[980px] overflow-hidden"
       }`}
     >
+      <div className="mx-auto max-w-7xl px-4 pt-10 md:px-6 md:pt-14">
+        <div className="mx-auto mb-8 max-w-4xl text-center md:mb-10">
+          <h1 className="text-2xl font-semibold leading-tight text-white md:text-3xl lg:text-4xl">
+            Need Automation, AI agents/assistants, or a Custom App?
+            <span className="mt-2 block text-cyan-300">
+              Let&apos;s Build the System Your Business Actually Needs.
+            </span>
+          </h1>
+
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-cyan-100/70 md:text-sm lg:text-base">
+            Tumbletech designs automation, AI solutions, websites, and business
+            systems that help companies save time, reduce manual work, and
+            operate more efficiently.
+          </p>
+
+          <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-3 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-6 py-3 text-xs font-medium uppercase tracking-[0.18em] text-cyan-200 transition duration-300 hover:border-cyan-300 hover:bg-cyan-400/20 hover:text-white"
+            >
+              Request a Consultation
+              <span className="transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
       {!isMobile && (
-        <div className="pointer-events-none absolute inset-0 z-10 grid place-items-center">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[240px] z-10 grid place-items-center">
           <motion.img
             animate={spin}
             src="/002.favicon-b.png"
@@ -675,7 +710,7 @@ function HeroWithCallouts() {
       )}
 
       {isMobile && (
-        <div className="mx-auto max-w-5xl space-y-4">
+        <div className="mx-auto mt-6 max-w-5xl space-y-4">
           {["auto", "idea", "web", "ai"].map((id) => (
             <div
               key={id}
@@ -856,267 +891,270 @@ function AboutSection() {
 }
 
 /* ======================= FEATURED PROJECTS ======================= */
-  function FeaturedProjectsSection() {
-    const [activeCategory, setActiveCategory] = useState(null);
-    const [selectedProject, setSelectedProject] = useState(null);
+function FeaturedProjectsSection() {
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
-    const categories = [
-      {
-        title: "Automation",
-        key: "automation",
-        text: "Workflow automation, integrations, reporting systems, lead capture flows, and operational pipelines that reduce manual work.",
-        projects: [
-          {title: "AI Lead Triage & Follow-Up System",
-            image: "/projects/automation/ai-lead-triage.jpg",
-            video: "https://www.youtube.com/embed/d6ANuYft4u4",
-            narrative: [
-              "Captures incoming leads and evaluates them based on fit and urgency.",
-              "Helps businesses prioritize serious inquiries and avoid slow follow-up.",
-              "Built to turn scattered lead handling into a more structured workflow.",
-            ],
-          },
-          {
-            title: "Lot Readiness Check",
-            image: "/projects/automation/lot-readiness-check.jpg",
-            video: "",
-            narrative: [
-              "A workflow concept designed to assess site readiness before deeper engagement.",
-              "Helps surface early red flags that may affect feasibility or buyer decisions.",
-              "Built to make pre-checking more systematic and less manual.",
-            ],
-          },
-          {
-            title: "Pre-Sales Qualification AI",
-            image: "/projects/automation/pre-sales-qualification-ai.jpg",
-            video: "https://www.youtube.com/embed/By8R9cPqcPE",
-            narrative: [
-              "Qualifies prospects before they consume too much sales time.",
-              "Supports better screening by identifying fit, readiness, and intent.",
-              "Designed to reduce wasted effort and improve response quality.",
-            ],
-          },
-          {
-            title: "Proposal Draft Generator",
-            image: "/projects/automation/proposal-draft-generator.jpg",
-            video: "",
-           narrative: [
-              "Turns meeting notes and project requirements into a proposal immediately after the discussion ends.",
-              "Helps contractors or consultants review, print, or send a proposal while the client is still present.",
-              "Reduces forgotten details, incorrect assumptions, and delays between the meeting and the signed proposal.",
-            ],
-          },
-          {
-            title: "Employee Attendance Tracker",
-            image: "/projects/automation/employee-attendance-tracker.jpg",
-            video: "",
-            narrative: [
-              "Tracks attendance records through a cleaner digital workflow.",
-              "Reduces manual monitoring and simplifies review of logged entries.",
-              "Built as practical internal operations tool for small teams.",
-            ],
-          },
-        ],
-      },
-      {
-        title: "AI Agents Development",
-        key: "ai-agents",
-        text: "Custom AI assistants, triage agents, follow-up agents, support agents, and intelligent workflows tailored to business use cases.",
-        projects: [],
-      },
-      {
-        title: "Websites",
-        key: "websites",
-        text: "Business websites, landing pages, showcase sites, portals, and web experiences built for clarity, speed, and credibility.",
-        projects: [],
-      },
-      {
-        title: "SaaS",
-        key: "saas",
-        text: "Internal tools, MVPs, dashboards, subscription-ready systems, and software products designed around real operational problems.",
-        projects: [],
-      },
-    ];
+  const categories = [
+    {
+      title: "Automation",
+      key: "automation",
+      text: "Workflow automation, integrations, reporting systems, lead capture flows, and operational pipelines that reduce manual work.",
+      projects: [
+        {
+          title: "AI Lead Triage & Follow-Up System",
+          image: "/projects/automation/ai-lead-triage.jpg",
+          video: "https://www.youtube.com/embed/d6ANuYft4u4",
+          narrative: [
+            "Captures incoming leads and evaluates them based on fit and urgency.",
+            "Helps businesses prioritize serious inquiries and avoid slow follow-up.",
+            "Built to turn scattered lead handling into a more structured workflow.",
+          ],
+        },
+        {
+          title: "Lot Readiness Check",
+          image: "/projects/automation/lot-readiness-check.jpg",
+          video: "",
+          narrative: [
+            "A workflow concept designed to assess site readiness before deeper engagement.",
+            "Helps surface early red flags that may affect feasibility or buyer decisions.",
+            "Built to make pre-checking more systematic and less manual.",
+          ],
+        },
+        {
+          title: "Pre-Sales Qualification AI",
+          image: "/projects/automation/pre-sales-qualification-ai.jpg",
+          video: "https://www.youtube.com/embed/By8R9cPqcPE",
+          narrative: [
+            "Qualifies prospects before they consume too much sales time.",
+            "Supports better screening by identifying fit, readiness, and intent.",
+            "Designed to reduce wasted effort and improve response quality.",
+          ],
+        },
+        {
+          title: "Proposal Draft Generator",
+          image: "/projects/automation/proposal-draft-generator.jpg",
+          video: "",
+          narrative: [
+            "Turns meeting notes and project requirements into a proposal immediately after the discussion ends.",
+            "Helps contractors or consultants review, print, or send a proposal while the client is still present.",
+            "Reduces forgotten details, incorrect assumptions, and delays between the meeting and the signed proposal.",
+          ],
+        },
+        {
+          title: "Employee Attendance Tracker",
+          image: "/projects/automation/employee-attendance-tracker.jpg",
+          video: "",
+          narrative: [
+            "Tracks attendance records through a cleaner digital workflow.",
+            "Reduces manual monitoring and simplifies review of logged entries.",
+            "Built as practical internal operations tool for small teams.",
+          ],
+        },
+      ],
+    },
+    {
+      title: "AI Agents Development",
+      key: "ai-agents",
+      text: "Custom AI assistants, triage agents, follow-up agents, support agents, and intelligent workflows tailored to business use cases.",
+      projects: [],
+    },
+    {
+      title: "Websites",
+      key: "websites",
+      text: "Business websites, landing pages, showcase sites, portals, and web experiences built for clarity, speed, and credibility.",
+      projects: [],
+    },
+    {
+      title: "SaaS",
+      key: "saas",
+      text: "Internal tools, MVPs, dashboards, subscription-ready systems, and software products designed around real operational problems.",
+      projects: [],
+    },
+  ];
 
-    const handleCategoryClick = (key) => {
-      setActiveCategory((prev) => (prev === key ? null : key));
-    };
+  const handleCategoryClick = (key) => {
+    setActiveCategory((prev) => (prev === key ? null : key));
+  };
 
-    const activeCategoryData = categories.find(
-      (category) => category.key === activeCategory
-    );
+  const activeCategoryData = categories.find(
+    (category) => category.key === activeCategory
+  );
 
-    return (
-      <section
-        id="projects"
-        className="border-t border-cyan-500/10 bg-black px-5 py-20 md:px-8"
-      >
-        <div className="mx-auto max-w-7xl">
-          <div className="text-center">
-            <div className="text-xs uppercase tracking-[0.28em] text-cyan-300">
-              Featured Projects
-            </div>
-
-            <h2 className="mt-4 text-3xl font-semibold text-white md:text-4xl">
-              Four lanes of build capability
-            </h2>
-
-            <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-cyan-100/70 md:text-base">
-              Tumbletech builds across automation, AI agents, websites, and SaaS.
-              Click any of the cards to view our featured projects.
-            </p>
+  return (
+    <section
+      id="projects"
+      className="border-t border-cyan-500/10 bg-black px-5 py-20 md:px-8"
+    >
+      <div className="mx-auto max-w-7xl">
+        <div className="text-center">
+          <div className="text-xs uppercase tracking-[0.28em] text-cyan-300">
+            Featured Projects
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {categories.map((item) => {
-              const isActive = activeCategory === item.key;
+          <h2 className="mt-4 text-3xl font-semibold text-white md:text-4xl">
+            Four lanes of build capability
+          </h2>
 
-              return (
-                <button
-                  key={item.title}
-                  type="button"
-                  onClick={() => handleCategoryClick(item.key)}
-                  className={`group block rounded-2xl border bg-cyan-500/[0.03] p-6 text-left transition-all duration-200 ${
+          <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-cyan-100/70 md:text-base">
+            Tumbletech builds across automation, AI agents, websites, and SaaS.
+            Click any of the cards to view our featured projects.
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {categories.map((item) => {
+            const isActive = activeCategory === item.key;
+
+            return (
+              <button
+                key={item.title}
+                type="button"
+                onClick={() => handleCategoryClick(item.key)}
+                className={`group block rounded-2xl border bg-cyan-500/[0.03] p-6 text-left transition-all duration-200 ${
+                  isActive
+                    ? "border-cyan-300 bg-cyan-500/[0.08] shadow-[0_0_30px_rgba(34,199,218,0.12)]"
+                    : "border-cyan-500/15 hover:-translate-y-1 hover:border-cyan-300 hover:bg-cyan-500/[0.08] hover:shadow-[0_0_30px_rgba(34,199,218,0.12)]"
+                }`}
+              >
+                <h3 className="text-xl font-semibold text-white transition group-hover:text-cyan-200">
+                  {item.title}
+                </h3>
+
+                <p className="mt-4 text-sm leading-7 text-cyan-100/75 transition group-hover:text-cyan-100/90">
+                  {item.text}
+                </p>
+
+                <div
+                  className={`mt-6 h-[2px] bg-cyan-400/70 transition-all duration-200 ${
                     isActive
-                      ? "border-cyan-300 bg-cyan-500/[0.08] shadow-[0_0_30px_rgba(34,199,218,0.12)]"
-                      : "border-cyan-500/15 hover:-translate-y-1 hover:border-cyan-300 hover:bg-cyan-500/[0.08] hover:shadow-[0_0_30px_rgba(34,199,218,0.12)]"
+                      ? "w-20 bg-cyan-300"
+                      : "w-14 group-hover:w-20 group-hover:bg-cyan-300"
                   }`}
-                >
-                  <h3 className="text-xl font-semibold text-white transition group-hover:text-cyan-200">
-                    {item.title}
-                  </h3>
+                />
+              </button>
+            );
+          })}
+        </div>
 
-                  <p className="mt-4 text-sm leading-7 text-cyan-100/75 transition group-hover:text-cyan-100/90">
-                    {item.text}
-                  </p>
+        <AnimatePresence mode="wait">
+          {activeCategoryData && activeCategoryData.projects.length > 0 && (
+            <motion.div
+              key={activeCategoryData.key}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="mt-10 rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-6 md:p-8"
+            >
+              <div className="text-xs uppercase tracking-[0.24em] text-cyan-300">
+                Featured {activeCategoryData.title} Projects
+              </div>
 
-                  <div
-                    className={`mt-6 h-[2px] bg-cyan-400/70 transition-all duration-200 ${
-                      isActive ? "w-20 bg-cyan-300" : "w-14 group-hover:w-20 group-hover:bg-cyan-300"
-                    }`}
-                  />
-                </button>
-              );
-            })}
-          </div>
-
-          <AnimatePresence mode="wait">
-            {activeCategoryData && activeCategoryData.projects.length > 0 && (
-              <motion.div
-                key={activeCategoryData.key}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
-                className="mt-10 rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-6 md:p-8"
-              >
-                <div className="text-xs uppercase tracking-[0.24em] text-cyan-300">
-                  Featured {activeCategoryData.title} Projects
-                </div>
-
-                <div className="mt-6 space-y-4">
-                  {activeCategoryData.projects.map((project, index) => (
-                    <button
-                      key={project.title}
-                      type="button"
-                      onClick={() => setSelectedProject(project)}
-                      className="flex w-full items-center justify-between rounded-xl border border-cyan-500/15 bg-black/40 px-5 py-4 text-left transition hover:border-cyan-300 hover:bg-cyan-500/[0.06]"
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-cyan-400/30 text-sm font-medium text-cyan-300">
-                          {index + 1}
-                        </div>
-                        <span className="text-sm font-medium text-cyan-100 md:text-base">
-                          {project.title}
-                        </span>
-                      </div>
-
-                      <span className="text-cyan-300 transition group-hover:text-cyan-200">
-                        →
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <AnimatePresence>
-            {selectedProject && (
-              <motion.div
-                className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setSelectedProject(null)}
-              >
-                <motion.div
-                  className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-cyan-400/30 bg-black p-6 shadow-[0_0_40px_rgba(34,199,218,0.12)] md:p-8"
-                  initial={{ opacity: 0, y: 20, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 20, scale: 0.98 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  onClick={(e) => e.stopPropagation()}
-                >
+              <div className="mt-6 space-y-4">
+                {activeCategoryData.projects.map((project, index) => (
                   <button
+                    key={project.title}
                     type="button"
-                    onClick={() => setSelectedProject(null)}
-                    className="absolute right-4 top-4 rounded-lg border border-cyan-400/20 px-3 py-1 text-sm text-cyan-200 transition hover:border-cyan-300 hover:bg-cyan-500/10"
+                    onClick={() => setSelectedProject(project)}
+                    className="flex w-full items-center justify-between rounded-xl border border-cyan-500/15 bg-black/40 px-5 py-4 text-left transition hover:border-cyan-300 hover:bg-cyan-500/[0.06]"
                   >
-                    Close
-                  </button>
-
-                  <div className="pr-16">
-                    <div className="text-xs uppercase tracking-[0.24em] text-cyan-300">
-                      Project Details
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-cyan-400/30 text-sm font-medium text-cyan-300">
+                        {index + 1}
+                      </div>
+                      <span className="text-sm font-medium text-cyan-100 md:text-base">
+                        {project.title}
+                      </span>
                     </div>
 
-                    <h3 className="mt-3 text-2xl font-semibold text-white md:text-3xl">
-                      {selectedProject.title}
-                    </h3>
+                    <span className="text-cyan-300 transition group-hover:text-cyan-200">
+                      →
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {selectedProject && (
+            <motion.div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProject(null)}
+            >
+              <motion.div
+                className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-cyan-400/30 bg-black p-6 shadow-[0_0_40px_rgba(34,199,218,0.12)] md:p-8"
+                initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 20, scale: 0.98 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  type="button"
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute right-4 top-4 rounded-lg border border-cyan-400/20 px-3 py-1 text-sm text-cyan-200 transition hover:border-cyan-300 hover:bg-cyan-500/10"
+                >
+                  Close
+                </button>
+
+                <div className="pr-16">
+                  <div className="text-xs uppercase tracking-[0.24em] text-cyan-300">
+                    Project Details
                   </div>
 
-                  {selectedProject.image && (
-                    <img
-                      src={selectedProject.image}
-                      alt={selectedProject.title}
-                      className="mt-6 w-full rounded-xl border border-cyan-500/15 object-cover"
-                    />
-                  )}
+                  <h3 className="mt-3 text-2xl font-semibold text-white md:text-3xl">
+                    {selectedProject.title}
+                  </h3>
+                </div>
 
-                  {selectedProject.narrative?.length > 0 && (
-                    <div className="mt-6 space-y-3">
-                      {selectedProject.narrative.map((item, idx) => (
-                        <p
-                          key={idx}
-                          className="text-sm leading-7 text-cyan-100/80 md:text-base"
-                        >
-                          {item}
-                        </p>
-                      ))}
-                    </div>
-                  )}
+                {selectedProject.image && (
+                  <img
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    className="mt-6 w-full rounded-xl border border-cyan-500/15 object-cover"
+                  />
+                )}
 
-                  {selectedProject.video && (
-                    <div className="mt-6 overflow-hidden rounded-xl border border-cyan-500/15">
-                      <div className="aspect-video w-full">
-                        <iframe
-                          src={selectedProject.video}
-                          title={selectedProject.title}
-                          className="h-full w-full"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        />
-                      </div>
+                {selectedProject.narrative?.length > 0 && (
+                  <div className="mt-6 space-y-3">
+                    {selectedProject.narrative.map((item, idx) => (
+                      <p
+                        key={idx}
+                        className="text-sm leading-7 text-cyan-100/80 md:text-base"
+                      >
+                        {item}
+                      </p>
+                    ))}
+                  </div>
+                )}
+
+                {selectedProject.video && (
+                  <div className="mt-6 overflow-hidden rounded-xl border border-cyan-500/15">
+                    <div className="aspect-video w-full">
+                      <iframe
+                        src={selectedProject.video}
+                        title={selectedProject.title}
+                        className="h-full w-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
                     </div>
-                  )}
-                </motion.div>
+                  </div>
+                )}
               </motion.div>
-            )}
-          </AnimatePresence>
-
-        </div>
-      </section>
-    );
-  }
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
+  );
+}
 
 /* ======================= CONNECTOR ======================= */
 function Connector({ start, end, delay = 0 }) {
