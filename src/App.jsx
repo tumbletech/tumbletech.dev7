@@ -842,78 +842,147 @@ function AboutSection() {
 }
 
 /* ======================= FEATURED PROJECTS ======================= */
-function FeaturedProjectsSection() {
-  const categories = [
-    {
-      title: "Automation",
-      text: "Workflow automation, integrations, reporting systems, lead capture flows, and operational pipelines that reduce manual work.",
-    },
-    {
-      title: "AI Agents Development",
-      text: "Custom AI assistants, triage agents, follow-up agents, support agents, and intelligent workflows tailored to business use cases.",
-    },
-    {
-      title: "Websites",
-      text: "Business websites, landing pages, showcase sites, portals, and web experiences built for clarity, speed, and credibility.",
-    },
-    {
-      title: "SaaS",
-      text: "Internal tools, MVPs, dashboards, subscription-ready systems, and software products designed around real operational problems.",
-    },
-  ];
+  function FeaturedProjectsSection() {
+    const [activeCategory, setActiveCategory] = useState(null);
 
-  return (
-    <section
-      id="projects"
-      className="border-t border-cyan-500/10 bg-black px-5 py-20 md:px-8"
-    >
-      <div className="mx-auto max-w-7xl">
-        <div className="text-center">
-          <div className="text-xs uppercase tracking-[0.28em] text-cyan-300">
-            Featured Projects
+    const categories = [
+      {
+        title: "Automation",
+        key: "automation",
+        text: "Workflow automation, integrations, reporting systems, lead capture flows, and operational pipelines that reduce manual work.",
+        projects: [
+          "AI Lead Triage & Follow-Up System",
+          "Lot Readiness Check",
+          "Pre-Sales Qualification AI",
+          "Proposal Draft Generator",
+          "Employee Attendance Tracker",
+        ],
+      },
+      {
+        title: "AI Agents Development",
+        key: "ai-agents",
+        text: "Custom AI assistants, triage agents, follow-up agents, support agents, and intelligent workflows tailored to business use cases.",
+        projects: [],
+      },
+      {
+        title: "Websites",
+        key: "websites",
+        text: "Business websites, landing pages, showcase sites, portals, and web experiences built for clarity, speed, and credibility.",
+        projects: [],
+      },
+      {
+        title: "SaaS",
+        key: "saas",
+        text: "Internal tools, MVPs, dashboards, subscription-ready systems, and software products designed around real operational problems.",
+        projects: [],
+      },
+    ];
+
+    const handleCategoryClick = (key) => {
+      setActiveCategory((prev) => (prev === key ? null : key));
+    };
+
+    const activeCategoryData = categories.find(
+      (category) => category.key === activeCategory
+    );
+
+    return (
+      <section
+        id="projects"
+        className="border-t border-cyan-500/10 bg-black px-5 py-20 md:px-8"
+      >
+        <div className="mx-auto max-w-7xl">
+          <div className="text-center">
+            <div className="text-xs uppercase tracking-[0.28em] text-cyan-300">
+              Featured Projects
+            </div>
+
+            <h2 className="mt-4 text-3xl font-semibold text-white md:text-4xl">
+              Four lanes of build capability
+            </h2>
+
+            <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-cyan-100/70 md:text-base">
+              Tumbletech builds across automation, AI agents, websites, and SaaS.
+              Click any of the cards to view our featured projects.
+            </p>
           </div>
 
-          <h2 className="mt-4 text-3xl font-semibold text-white md:text-4xl">
-            Four lanes of build capability
-          </h2>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {categories.map((item) => {
+              const isActive = activeCategory === item.key;
 
-          <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-cyan-100/70 md:text-base">
-            Tumbletech builds across automation, AI agents, websites, and SaaS.
-            Click any of the cards to view our featured projects.
-          </p>
+              return (
+                <button
+                  key={item.title}
+                  type="button"
+                  onClick={() => handleCategoryClick(item.key)}
+                  className={`group block rounded-2xl border bg-cyan-500/[0.03] p-6 text-left transition-all duration-200 ${
+                    isActive
+                      ? "border-cyan-300 bg-cyan-500/[0.08] shadow-[0_0_30px_rgba(34,199,218,0.12)]"
+                      : "border-cyan-500/15 hover:-translate-y-1 hover:border-cyan-300 hover:bg-cyan-500/[0.08] hover:shadow-[0_0_30px_rgba(34,199,218,0.12)]"
+                  }`}
+                >
+                  <h3 className="text-xl font-semibold text-white transition group-hover:text-cyan-200">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-4 text-sm leading-7 text-cyan-100/75 transition group-hover:text-cyan-100/90">
+                    {item.text}
+                  </p>
+
+                  <div
+                    className={`mt-6 h-[2px] bg-cyan-400/70 transition-all duration-200 ${
+                      isActive ? "w-20 bg-cyan-300" : "w-14 group-hover:w-20 group-hover:bg-cyan-300"
+                    }`}
+                  />
+                </button>
+              );
+            })}
+          </div>
+
+          <AnimatePresence mode="wait">
+            {activeCategoryData && activeCategoryData.projects.length > 0 && (
+              <motion.div
+                key={activeCategoryData.key}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="mt-10 rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-6 md:p-8"
+              >
+                <div className="text-xs uppercase tracking-[0.24em] text-cyan-300">
+                  Featured {activeCategoryData.title} Projects
+                </div>
+
+                <div className="mt-6 space-y-4">
+                  {activeCategoryData.projects.map((project, index) => (
+                    <button
+                      key={project}
+                      type="button"
+                      className="flex w-full items-center justify-between rounded-xl border border-cyan-500/15 bg-black/40 px-5 py-4 text-left transition hover:border-cyan-300 hover:bg-cyan-500/[0.06]"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-cyan-400/30 text-sm font-medium text-cyan-300">
+                          {index + 1}
+                        </div>
+                        <span className="text-sm font-medium text-cyan-100 md:text-base">
+                          {project}
+                        </span>
+                      </div>
+
+                      <span className="text-cyan-300 transition group-hover:text-cyan-200">
+                        →
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-
-        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {categories.map((item) => (
-            <a
-              key={item.title}
-              href={
-                item.title === "Automation"
-                  ? "#svc-automation"
-                  : item.title === "AI Agents Development"
-                  ? "#svc-ai"
-                  : item.title === "Websites"
-                  ? "#svc-web"
-                  : "#svc-saas"
-              }
-              className="group block cursor-pointer rounded-2xl border border-cyan-500/15 bg-cyan-500/[0.03] p-6 transition-all duration-200 hover:-translate-y-1 hover:border-cyan-300 hover:bg-cyan-500/[0.08] hover:shadow-[0_0_30px_rgba(34,199,218,0.12)]"
-            >
-              <h3 className="text-xl font-semibold text-white transition group-hover:text-cyan-200">
-                {item.title}
-              </h3>
-
-              <p className="mt-4 text-sm leading-7 text-cyan-100/75 transition group-hover:text-cyan-100/90">
-                {item.text}
-              </p>
-
-              <div className="mt-6 h-[2px] w-14 bg-cyan-400/70 transition-all duration-200 group-hover:w-20 group-hover:bg-cyan-300" />
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+      </section>
+    );
+  }
 
 /* ======================= CONNECTOR ======================= */
 function Connector({ start, end, delay = 0 }) {
