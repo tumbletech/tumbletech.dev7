@@ -1,9 +1,21 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import ContactSection from "./components/ContactSection";
+import { Routes, Route } from "react-router-dom";
+import UserAgreement from "./pages/UserAgreement";
+
+/* ======================= USER AGREEMENT ======================== */
+export default function App () {
+  return (
+    <Routes>
+      <Route path="/" element={<Homepage />} />
+      <Route path="/user-agreement" element={<UserAgreement />} />
+    </Routes>
+  );
+}
 
 /* ============================= APP ============================= */
-export default function App() {
+function Homepage() {
   return (
     <div className="min-h-screen w-full bg-black text-white">
       <SiteNav />
