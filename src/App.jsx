@@ -844,6 +844,7 @@ function AboutSection() {
 /* ======================= FEATURED PROJECTS ======================= */
   function FeaturedProjectsSection() {
     const [activeCategory, setActiveCategory] = useState(null);
+    const [selectedProject, setSelectedProject] = useState(null);
 
     const categories = [
       {
@@ -851,11 +852,55 @@ function AboutSection() {
         key: "automation",
         text: "Workflow automation, integrations, reporting systems, lead capture flows, and operational pipelines that reduce manual work.",
         projects: [
-          "AI Lead Triage & Follow-Up System",
-          "Lot Readiness Check",
-          "Pre-Sales Qualification AI",
-          "Proposal Draft Generator",
-          "Employee Attendance Tracker",
+          {title: "AI Lead Triage & Follow-Up System",
+            image: "/projects/automation/ai-lead-triage.jpg",
+            video: "https://www.youtube.com/embed/d6ANuYft4u4",
+            narrative: [
+              "Captures incoming leads and evaluates them based on fit and urgency.",
+              "Helps businesses prioritize serious inquiries and avoid slow follow-up.",
+              "Built to turn scattered lead handling into a more structured workflow.",
+            ],
+          },
+          {
+            title: "Lot Readiness Check",
+            image: "/projects/automation/lot-readiness-check.jpg",
+            video: "",
+            narrative: [
+              "A workflow concept designed to assess site readiness before deeper engagement.",
+              "Helps surface early red flags that may affect feasibility or buyer decisions.",
+              "Built to make pre-checking more systematic and less manual.",
+            ],
+          },
+          {
+            title: "Pre-Sales Qualification AI",
+            image: "/projects/automation/pre-sales-qualification-ai.jpg",
+            video: "https://www.youtube.com/embed/By8R9cPqcPE",
+            narrative: [
+              "Qualifies prospects before they consume too much sales time.",
+              "Supports better screening by identifying fit, readiness, and intent.",
+              "Designed to reduce wasted effort and improve response quality.",
+            ],
+          },
+          {
+            title: "Proposal Draft Generator",
+            image: "/projects/automation/proposal-draft-generator.jpg",
+            video: "",
+           narrative: [
+              "Turns meeting notes and project requirements into a proposal immediately after the discussion ends.",
+              "Helps contractors or consultants review, print, or send a proposal while the client is still present.",
+              "Reduces forgotten details, incorrect assumptions, and delays between the meeting and the signed proposal.",
+            ],
+          },
+          {
+            title: "Employee Attendance Tracker",
+            image: "/projects/automation/employee-attendance-tracker.jpg",
+            video: "",
+            narrative: [
+              "Tracks attendance records through a cleaner digital workflow.",
+              "Reduces manual monitoring and simplifies review of logged entries.",
+              "Built as practical internal operations tool for small teams.",
+            ],
+          },
         ],
       },
       {
@@ -957,8 +1002,9 @@ function AboutSection() {
                 <div className="mt-6 space-y-4">
                   {activeCategoryData.projects.map((project, index) => (
                     <button
-                      key={project}
+                      key={project.title}
                       type="button"
+                      onClick={() => setSelectedProject(project)}
                       className="flex w-full items-center justify-between rounded-xl border border-cyan-500/15 bg-black/40 px-5 py-4 text-left transition hover:border-cyan-300 hover:bg-cyan-500/[0.06]"
                     >
                       <div className="flex items-center gap-4">
@@ -966,7 +1012,7 @@ function AboutSection() {
                           {index + 1}
                         </div>
                         <span className="text-sm font-medium text-cyan-100 md:text-base">
-                          {project}
+                          {project.title}
                         </span>
                       </div>
 
@@ -979,6 +1025,80 @@ function AboutSection() {
               </motion.div>
             )}
           </AnimatePresence>
+          <AnimatePresence>
+            {selectedProject && (
+              <motion.div
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setSelectedProject(null)}
+              >
+                <motion.div
+                  className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-cyan-400/30 bg-black p-6 shadow-[0_0_40px_rgba(34,199,218,0.12)] md:p-8"
+                  initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 20, scale: 0.98 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setSelectedProject(null)}
+                    className="absolute right-4 top-4 rounded-lg border border-cyan-400/20 px-3 py-1 text-sm text-cyan-200 transition hover:border-cyan-300 hover:bg-cyan-500/10"
+                  >
+                    Close
+                  </button>
+
+                  <div className="pr-16">
+                    <div className="text-xs uppercase tracking-[0.24em] text-cyan-300">
+                      Project Details
+                    </div>
+
+                    <h3 className="mt-3 text-2xl font-semibold text-white md:text-3xl">
+                      {selectedProject.title}
+                    </h3>
+                  </div>
+
+                  {selectedProject.image && (
+                    <img
+                      src={selectedProject.image}
+                      alt={selectedProject.title}
+                      className="mt-6 w-full rounded-xl border border-cyan-500/15 object-cover"
+                    />
+                  )}
+
+                  {selectedProject.narrative?.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      {selectedProject.narrative.map((item, idx) => (
+                        <p
+                          key={idx}
+                          className="text-sm leading-7 text-cyan-100/80 md:text-base"
+                        >
+                          {item}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+
+                  {selectedProject.video && (
+                    <div className="mt-6 overflow-hidden rounded-xl border border-cyan-500/15">
+                      <div className="aspect-video w-full">
+                        <iframe
+                          src={selectedProject.video}
+                          title={selectedProject.title}
+                          className="h-full w-full"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
         </div>
       </section>
     );
