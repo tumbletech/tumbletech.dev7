@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function UserAgreement() {
+  const navigate = useNavigate();
   const sections = [
     {
       title: "1. Acceptance of Terms",
@@ -64,6 +66,13 @@ export default function UserAgreement() {
     <div className="min-h-screen bg-black text-white">
       <section className="border-b border-cyan-500/10 px-5 py-16 md:px-8 md:py-20">
         <div className="mx-auto max-w-5xl">
+           <button
+                onClick={() => navigate(-1)}
+                className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-500/5 px-4 py-2 text-sm text-cyan-200 transition hover:border-cyan-300/40 hover:bg-cyan-500/10 hover:text-white"
+                >
+                ← Back to Last Page
+           </button>
+
           <div className="text-xs uppercase tracking-[0.28em] text-cyan-300">
             Legal
           </div>

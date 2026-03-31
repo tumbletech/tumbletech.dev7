@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import ContactSection from "./components/ContactSection";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import UserAgreement from "./pages/UserAgreement";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 /* ======================= USER AGREEMENT ======================== */
 export default function App () {
@@ -10,6 +11,7 @@ export default function App () {
     <Routes>
       <Route path="/" element={<Homepage />} />
       <Route path="/user-agreement" element={<UserAgreement />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
     </Routes>
   );
 }
@@ -107,20 +109,20 @@ function Homepage() {
 
                 <ul className="space-y-2">
                   <li>
-                    <a
-                      href="/privacy-policy"
+                    <Link
+                      to="/privacy-policy"
                       className="transition hover:text-cyan-200"
                     >
                       Privacy Policy
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/user-agreement"
+                    <Link
+                      to="/user-agreement"
                       className="transition hover:text-cyan-200"
                     >
                       User Agreement
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
