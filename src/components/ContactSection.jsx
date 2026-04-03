@@ -85,7 +85,7 @@ export default function ContactSection() {
           </div>
 
           <h2 className="mt-4 text-3xl font-semibold text-white md:text-4xl">
-            Let’s talk about your workflow
+            Let’s talk about your workflow - For Free!
           </h2>
 
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-cyan-100/70 md:text-base">

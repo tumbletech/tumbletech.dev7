@@ -688,7 +688,7 @@ function HeroWithCallouts() {
               href="#contact"
               className="group inline-flex items-center gap-3 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-6 py-3 text-xs font-medium uppercase tracking-[0.18em] text-cyan-200 transition duration-300 hover:border-cyan-300 hover:bg-cyan-400/20 hover:text-white"
             >
-              Request a Consultation
+              Request a Free Consultation
               <span className="transition-transform duration-300 group-hover:translate-x-1">
                 →
               </span>
